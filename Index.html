@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiVitrina.xyz — Tu Identidad Digital Web3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+--bg: #050810;
+--surface: #0d1320;
+--surface2: #131c30;
+--accent: #00e5ff;
+--accent2: #7c3aed;
+--accent3: #10b981;
+--text: #e8edf5;
+--muted: #6b7a99;
+--border: rgba(0,229,255,0.12);
+--glow: 0 0 40px rgba(0,229,255,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(--bg);
+color: var(--text);
+font-family: 'DM Sans', sans-serif;
+font-size: 16px;
+line-height: 1.6;
+overflow-x: hidden;
+}
+
+/* GRID BACKGROUND */
+body::before {
+content: '';
+position: fixed;
+inset: 0;
+background-image:
+linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+background-size: 60px 60px;
+pointer-events: none;
+z-index: 0;
+}
+
+/* NAV */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 18px 40px;
+background: rgba(5,8,16,0.85);
+backdrop-filter: blur(20px);
+border-bottom: 1px solid var(--border);
+}
+
+.logo {
+font-family: 'Syne', sans-serif;
+font-weight: 800;
+font-size: 1.4rem;
+color: var(--accent);
+letter-spacing: -0.5px;
+}
+.logo span { color: var(--text); }
+
+#walletBtn {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 10px 22px;
+background: transparent;
+border: 1.5px solid var(--accent);
+color: var(--accent);
+font-family: 'DM Sans', sans-serif;
+font-size: 0.9rem;
+font-weight: 500;
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.25s;
+position: relative;
+overflow: hidden;
+}
+#walletBtn::before {
+content: '';
+position: absolute;
+inset: 0;
+background: var(--accent);
+opacity: 0;
+transition: opacity 0.25s;
+}
+#walletBtn:hover::before { opacity: 0.1; }
+#walletBtn:hover { box-shadow: 0 0 20px rgba(0,229,255,0.3); }
+#walletBtn .dot {
+width: 8px; height: 8px;
+border-radius: 50%;
+background: var(--accent);
+flex-shrink: 0;
+}
+#walletBtn.connected { border-color: var(--accent3); color: var(--accent3); }
+#walletBtn.connected .dot { background: var(--accent3); animation: pulse 2s infinite; }
+
+@keyframes pulse {
+0%, 100% { opacity: 1; transform: scale(1); }
+50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* HERO */
+.hero {
+position: relative;
+z-index: 1;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 120px 20px 60px;
+}
+
+.hero-badge {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 6px 16px;
+background: rgba(0,229,255,0.08);
+border: 1px solid var(--border);
+border-radius: 100px;
+font-size: 0.8rem;
+color: var(--accent);
+margin-bottom: 32px;
+letter-spacing: 0.5px;
+}
+
+.hero h1 {
+font-family: 'Syne', sans-serif;
+font-size: clamp(2.8rem, 7vw, 5.5rem);
+font-weight: 800;
+line-height: 1.05;
+letter-spacing: -2px;
+max-width: 820px;
+margin-bottom: 24px;
+}
+
+.hero h1 em {
+font-style: normal;
+background: linear-gradient(135deg, var(--accent), var(--accent2));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.hero p {
+font-size: 1.15rem;
+color: var(--muted);
+max-width: 560px;
+margin-bottom: 44px;
+}
+
+.hero-cta {
+display: flex;
+gap: 16px;
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.btn-primary {
+padding: 14px 32px;
+background: linear-gradient(135deg, var(--accent), #0099bb);
+color: #050810;
+font-family: 'DM Sans', sans-serif;
+font-weight: 700;
+font-size: 1rem;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+transition: all 0.25s;
+text-decoration: none;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,255,0.4); }
+
+.btn-ghost {
+padding: 14px 32px;
+background: transparent;
+color: var(--text);
+font-family: 'DM Sans', sans-serif;
+font-weight: 500;
+font-size: 1rem;
+border: 1.5px solid rgba(255,255,255,0.15);
+border-radius: 10px;
+cursor: pointer;
+transition: all 0.25s;
+text-decoration: none;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+
+/* WALLET MESSAGE */
+#welcomeMsg {
+display: none;
+position: fixed;
+top: 80px;
+right: 40px;
+z-index: 99;
+background: var(--surface2);
+border: 1px solid var(--accent3);
+border-radius: 12px;
+padding: 16px 20px;
+max-width: 320px;
+font-size: 0.85rem;
+animation: slideIn 0.4s ease;
+box-shadow: 0 8px 32px rgba(16,185,129,0.2);
+}
+#welcomeMsg strong { color: var(--accent3); display: block; margin-bottom: 4px; font-family: 'Syne', sans-serif; }
+#welcomeMsg .addr { color: var(--muted); font-size: 0.78rem; word-break: break-all; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+/* GALLERY SECTION */
+.section {
+position: relative;
+z-index: 1;
+padding: 80px 40px;
+max-width: 1300px;
+margin: 0 auto;
+}
+
+.section-header {
+text-align: center;
+margin-bottom: 60px;
+}
+
+.section-label {
+display: inline-block;
+font-size: 0.78rem;
+font-weight: 500;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(--accent);
+margin-bottom: 16px;
+}
+
+.section-header h2 {
+font-family: 'Syne', sans-serif;
+font-size: clamp(2rem, 4vw, 3rem);
+font-weight: 800;
+letter-spacing: -1px;
+line-height: 1.1;
+}
+
+.section-header p {
+color: var(--muted);
+margin-top: 16px;
+font-size: 1.05rem;
+}
+
+/* DEMO GRID */
+.demo-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+gap: 28px;
+}
+
+.demo-card {
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: 16px;
+overflow: hidden;
+transition: all 0.3s;
+position: relative;
+}
+.demo-card:hover {
+border-color: rgba(0,229,255,0.3);
+transform: translateY(-4px);
+box-shadow: var(--glow);
+}
+
+.demo-preview {
+position: relative;
+height: 220px;
+overflow: hidden;
+background: var(--surface2);
+}
+
+/* Simulated page previews */
+.demo-preview .sim {
+position: absolute;
+inset: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+font-size: 0.7rem;
+}
+
+.badge-categoria {
+position: absolute;
+top: 12px;
+left: 12px;
+padding: 4px 10px;
+background: rgba(0,0,0,0.6);
+border: 1px solid rgba(255,255,255,0.15);
+border-radius: 100px;
+font-size: 0.7rem;
+color: var(--text);
+backdrop-filter: blur(8px);
+}
+
+.demo-info {
+padding: 20px 24px 24px;
+}
+
+.demo-info h3 {
+font-family: 'Syne', sans-serif;
+font-size: 1.1rem;
+font-weight: 700;
+margin-bottom: 6px;
+}
+
+.demo-info p {
+color: var(--muted);
+font-size: 0.85rem;
+margin-bottom: 18px;
+line-height: 1.5;
+}
+
+.demo-actions {
+display: flex;
+gap: 10px;
+}
+
+.btn-demo {
+flex: 1;
+padding: 10px 0;
+border-radius: 8px;
+font-family: 'DM Sans', sans-serif;
+font-size: 0.82rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.2s;
+border: none;
+text-align: center;
+}
+
+.btn-ver {
+background: rgba(0,229,255,0.1);
+color: var(--accent);
+border: 1px solid rgba(0,229,255,0.25);
+}
+.btn-ver:hover { background: rgba(0,229,255,0.18); }
+
+.btn-contratar {
+background: linear-gradient(135deg, var(--accent2), #9f1ef5);
+color: #fff;
+}
+.btn-contratar:hover { filter: brightness(1.15); transform: translateY(-1px); }
+
+/* BENEFITS */
+.benefits-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 24px;
+margin-top: 20px;
+}
+
+.benefit-card {
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: 16px;
+padding: 36px 32px;
+position: relative;
+overflow: hidden;
+transition: border-color 0.3s;
+}
+.benefit-card:hover { border-color: rgba(0,229,255,0.3); }
+
+.benefit-card::before {
+content: '';
+position: absolute;
+top: -60px; right: -60px;
+width: 160px; height: 160px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(0,229,255,0.08), transparent 70%);
+}
+
+.benefit-icon {
+width: 52px; height: 52px;
+border-radius: 14px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.5rem;
+margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+font-family: 'Syne', sans-serif;
+font-size: 1.15rem;
+font-weight: 700;
+margin-bottom: 10px;
+}
+
+.benefit-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+/* DIVIDER */
+.divider {
+height: 1px;
+background: linear-gradient(to right, transparent, var(--border), transparent);
+margin: 0 40px;
+position: relative;
+z-index: 1;
+}
+
+/* FOOTER */
+footer {
+position: relative;
+z-index: 1;
+text-align: center;
+padding: 48px 20px;
+color: var(--muted);
+font-size: 0.85rem;
+border-top: 1px solid var(--border);
+}
+footer .logo { display: block; margin: 0 auto 12px; }
+
+/* MODAL */
+.modal-overlay {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(5,8,16,0.92);
+z-index: 200;
+align-items: center;
+justify-content: center;
+padding: 20px;
+backdrop-filter: blur(8px);
+}
+.modal-overlay.active { display: flex; }
+
+.modal {
+background: var(--surface);
+border: 1px solid rgba(0,229,255,0.2);
+border-radius: 20px;
+padding: 48px;
+max-width: 480px;
+width: 100%;
+text-align: center;
+animation: modalIn 0.3s ease;
+box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+@keyframes modalIn { from { opacity: 0; transform: scale(0.94) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+.modal h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+.modal p { color: var(--muted); margin-bottom: 28px; font-size: 0.95rem; }
+.modal input, .modal textarea {
+width: 100%;
+background: var(--bg);
+border: 1px solid var(--border);
+border-radius: 10px;
+padding: 12px 16px;
+color: var(--text);
+font-family: 'DM Sans', sans-serif;
+font-size: 0.95rem;
+margin-bottom: 12px;
+outline: none;
+transition: border-color 0.2s;
+}
+.modal input:focus, .modal textarea:focus { border-color: var(--accent); }
+.modal textarea { resize: vertical; min-height: 90px; }
+.modal-actions { display: flex; gap: 12px; }
+.modal-close { flex: 1; background: transparent; border: 1.5px solid var(--border); color: var(--muted); padding: 12px; border-radius: 10px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.2s; }
+.modal-close:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+
+/* SCROLL REVEAL */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+nav { padding: 16px 20px; }
+.section { padding: 60px 20px; }
+.demo-grid { grid-template-columns: 1fr; }
+#welcomeMsg { right: 20px; left: 20px; max-width: none; }
+.modal { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="logo">Mi<span>Vitrina</span>.xyz</div>
+<button id="walletBtn" onclick="connectWallet()">
+<span class="dot"></span>
+<span id="walletLabel">Conectar Wallet</span>
+</button>
+</nav>
+
+<!-- WALLET WELCOME -->
+<div id="welcomeMsg">
+<strong>🎉 Bienvenido a la Web3</strong>
+<div>Elige tu identidad digital:</div>
+<div class="addr" id="walletAddr"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-badge">
+<span>⬡</span>
+<span>Alojado en IPFS — 100% Descentralizado</span>
+</div>
+<h1>Tu presencia digital.<br><em>Sin dueño. Sin censura.</em></h1>
+<p>Elige una de nuestras 10 plantillas profesionales y lanza tu página web descentralizada en menos de 24 horas.</p>
+<div class="hero-cta">
+<a href="#demos" class="btn-primary">▶ Ver Demos en Vivo</a>
+<a href="#beneficios" class="btn-ghost">¿Qué es Web3? →</a>
+</div>
+</section>
+
+<!-- DEMOS -->
+<div class="divider"></div>
+<section class="section" id="demos">
+<div class="section-header reveal">
+<span class="section-label">Portafolio de Plantillas</span>
+<h2>10 Identidades Digitales<br>Listas para Ti</h2>
+<p>Cada plantilla es única, profesional y vive para siempre en IPFS.</p>
+</div>
+<div class="demo-grid" id="demoGrid">
+<!-- Cards injected by JS -->
+</div>
+</section>
+
+<!-- BENEFITS -->
+<div class="divider"></div>
+<section class="section" id="beneficios">
+<div class="section-header reveal">
+<span class="section-label">Por Qué Web3</span>
+<h2>Tu web. Tus reglas.<br>Para siempre.</h2>
+</div>
+<div class="benefits-grid">
+<div class="benefit-card reveal">
+<div class="benefit-icon" style="background: rgba(0,229,255,0.1);">🌐</div>
+<h3>Dominio Propio</h3>
+<p>Eres el único dueño de tu nombre digital. Nadie puede quitártelo ni expirarlo sin tu permiso. Es tuyo para siempre.</p>
+</div>
+<div class="benefit-card reveal">
+<div class="benefit-icon" style="background: rgba(124,58,237,0.1);">🔒</div>
+<h3>Inhackeable</h3>
+<p>Sin servidores centrales vulnerables. Tu sitio vive distribuido en miles de nodos alrededor del mundo. No hay un punto de ataque.</p>
+</div>
+<div class="benefit-card reveal">
+<div class="benefit-icon" style="background: rgba(16,185,129,0.1);">🛡️</div>
+<h3>Sin Censura</h3>
+<p>Tu información vive en la red IPFS. Ninguna empresa, gobierno o proveedor puede borrar o bloquear tu contenido.</p>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="logo">MiVitrina.xyz</div>
+<p>Identidades digitales descentralizadas · Alojado en IPFS vía Pinata</p>
+<p style="margin-top:8px; font-size:0.75rem; opacity:0.5;">© 2025 MiVitrina.xyz — La web que no se puede apagar</p>
+</footer>
+
+<!-- CONTRATAR MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+<div class="modal">
+<div style="font-size:2.5rem; margin-bottom:12px;">🚀</div>
+<h3>Contratar Plantilla</h3>
+<p>Te contactaremos en menos de 24h para personalizar y lanzar tu página.</p>
+<input type="text" id="nombreCliente" placeholder="Tu nombre completo" />
+<input type="text" id="waCliente" placeholder="WhatsApp o Telegram" />
+<textarea id="notasCliente" placeholder="Plantilla elegida + notas adicionales..."></textarea>
+<div class="modal-actions">
+<button class="modal-close" onclick="closeModalDirect()">Cancelar</button>
+<button class="btn-primary" style="flex:1; justify-content:center;" onclick="enviarSolicitud()">Enviar Solicitud →</button>
+</div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// CONFIG INTELIGENTE — Solo edita aquí
+// ═══════════════════════════════════════
+const APP_CONFIG = {
+gateway: "https://gateway.pinata.cloud/ipfs/",
+whatsapp: "525613338962", // Tu número con código de país
+plantillas: [
+{
+id: 1,
+nombre: "Médico Pro",
+categoria: "Salud",
+desc: "Consultas, servicios, horarios y contacto para médicos y clínicas.",
+cid: "019e0842-aaf8-7721-9758-aed025103c96",
+color1: "#0ea5e9", color2: "#0284c7",
+emoji: "🩺",
+tags: ["Médico", "Clínica", "Salud"]
+},
+{
+id: 2,
+nombre: "Abogado Elite",
+categoria: "Legal",
+desc: "Perfil profesional con áreas de práctica y formulario de consulta.",
+cid: "019e0844-97e0-77c7-8d01-f6f64902e33b",
+color1: "#7c3aed", color2: "#5b21b6",
+emoji: "⚖️",
+tags: ["Abogado", "Notario", "Legal"]
+},
+{
+id: 3,
+nombre: "Chef & Restaurante",
+categoria: "Gastronomía",
+desc: "Menú digital, galería de platillos y reservaciones en línea.",
+cid: "019e0844-e09a-778d-a9b3-153d54baa97c",
+color1: "#ea580c", color2: "#c2410c",
+emoji: "👨‍🍳",
+tags: ["Restaurante", "Chef", "Menú"]
+},
+{
+id: 4,
+nombre: "Arquitecto & Diseño",
+categoria: "Arquitectura",
+desc: "Portafolio visual de proyectos con galería y contacto directo.",
+cid: "019e0845-4863-7550-be8c-56cfb2cbf1f2",
+color1: "#0d9488", color2: "#0f766e",
+emoji: "🏛️",
+tags: ["Arquitecto", "Diseño", "Portafolio"]
+},
+{
+id: 5,
+nombre: "Contador Certificado",
+categoria: "Finanzas",
+desc: "Servicios fiscales, facturación electrónica y asesoría financiera.",
+cid: "019e0845-a744-72f7-ace9-be0d17e7b6a3
+",
+color1: "#16a34a", color2: "#15803d",
+emoji: "📊",
+tags: ["Contador", "SAT", "Fiscal"]
+},
+{
+id: 6,
+nombre: "Psicólogo Online",
+categoria: "Salud Mental",
+desc: "Agenda de sesiones, áreas de especialidad y testimonios de pacientes.",
+cid: "019e0846-cb1d-7724-ae67-ff300c06816e",
+color1: "#db2777", color2: "#be185d",
+emoji: "🧠",
+tags: ["Psicólogo", "Terapia", "Bienestar"]
+},
+{
+id: 7,
+nombre: "Tienda Boutique",
+categoria: "E-commerce",
+desc: "Catálogo de productos con galería, precios y pedidos por WhatsApp.",
+cid: "019e0847-337b-7365-86d4-c269dc67d98a",
+color1: "#d97706", color2: "#b45309",
+emoji: "🛍️",
+tags: ["Tienda", "Boutique", "Moda"]
+},
+{
+id: 8,
+nombre: "Fotógrafo Creativo",
+categoria: "Arte",
+desc: "Portafolio inmersivo de fotos, tarifas y reservación de sesiones.",
+cid: "019e0847-6cb5-7988-8cbf-2d2a3656d931",
+color1: "#475569", color2: "#1e293b",
+emoji: "📸",
+tags: ["Fotógrafo", "Artista", "Sesiones"]
+},
+{
+id: 9,
+nombre: "Coach Empresarial",
+categoria: "Negocios",
+desc: "Landing page de alto impacto para coaches, consultores y mentores.",
+cid: "019e0848-931a-7c66-ba79-9b22657341c0",
+color1: "#7c3aed", color2: "#0ea5e9",
+emoji: "🎯",
+tags: ["Coach", "Consultor", "Mentor"]
+},
+{
+id: 10,
+nombre: "Inmobiliaria Digital",
+categoria: "Bienes Raíces",
+desc: "Listado de propiedades, calculadora de hipoteca y citas virtuales.",
+cid: "019e0848-dfab-7ed7-b7b8-eaa209c0c5a3",
+color1: "#0369a1", color2: "#1d4ed8",
+emoji: "🏠",
+tags: ["Inmobiliaria", "Casas", "Renta"]
+}
+]
+};
+
+// ═══════════════════════════════════════
+// RENDER DEMO CARDS
+// ═══════════════════════════════════════
+function renderCards() {
+const grid = document.getElementById('demoGrid');
+APP_CONFIG.plantillas.forEach((p, i) => {
+const card = document.createElement('div');
+card.className = 'demo-card reveal';
+card.style.transitionDelay = ${i * 0.05}s; const liveUrl = APP_CONFIG.gateway + p.cid; card.innerHTML =
+<div class="demo-preview">
+<div class="sim" style="background: linear-gradient(135deg, ${p.color1}18, ${p.color2}30);">
+<div style="font-size:3.5rem; margin-bottom:12px;">${p.emoji}&lt;/div&gt; &lt;div style="font-family:'Syne',sans-serif; font-size:1rem; font-weight:700; color:#fff; text-align:center;"&gt;${p.nombre}</div>
+<div style="color:rgba(255,255,255,0.5); font-size:0.72rem; margin-top:4px; text-align:center;">${p.tags.join(' · ')}&lt;/div&gt; &lt;div style="margin-top:16px; width:70%; height:3px; border-radius:2px; background:linear-gradient(to right, ${p.color1}, ${p.color2});"&gt;&lt;/div&gt; &lt;div style="margin-top:8px; width:50%; height:2px; border-radius:2px; background:rgba(255,255,255,0.1);"&gt;&lt;/div&gt; &lt;div style="margin-top:4px; width:60%; height:2px; border-radius:2px; background:rgba(255,255,255,0.07);"&gt;&lt;/div&gt; &lt;/div&gt; &lt;span class="badge-categoria"&gt;${p.categoria}</span>
+</div>
+<div class="demo-info">
+<h3>${p.emoji} ${p.nombre}</h3>
+<p>${p.desc}&lt;/p&gt; &lt;div class="demo-actions"&gt; &lt;button class="btn-demo btn-ver" onclick="verDemo('${liveUrl}')">▶ Ver Demo</button>
+<button class="btn-demo btn-contratar" onclick="abrirModal('${p.nombre}')"&gt;Contratar →&lt;/button&gt; &lt;/div&gt; &lt;/div>;
+grid.appendChild(card);
+});
+observeReveal();
+}
+
+function verDemo(url) {
+window.open(url, '_blank');
+}
+
+// ═══════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════
+let plantillaSeleccionada = '';
+
+function abrirModal(nombre) {
+plantillaSeleccionada = nombre;
+document.getElementById('notasCliente').value = Plantilla: ${nombre}\n`;
+document.getElementById('modalOverlay').classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+
+function closeModalDirect() {
+document.getElementById('modalOverlay').classList.remove('active');
+document.body.style.overflow = '';
+}
+
+function enviarSolicitud() {
+const nombre = document.getElementById('nombreCliente').value.trim();
+const wa = document.getElementById('waCliente').value.trim();
+const notas = document.getElementById('notasCliente').value.trim();
+if (!nombre || !wa) { alert('Por favor ingresa tu nombre y contacto.'); return; }
+const msg = encodeURIComponent(Hola! Me interesa contratar una página web.\n\nNombre:${nombre}\nContacto: latex
+{wa}\n\n
+
+{notas}); window.open(https://wa.me/{msg}`, '_blank');
+closeModalDirect();
+}
+
+// ═══════════════════════════════════════
+// WALLET (MetaMask)
+// ═══════════════════════════════════════
+let connected = false;
+
+async function connectWallet() {
+if (connected) return;
+if (typeof window.ethereum === 'undefined') {
+alert('MetaMask no detectado. Instala la extensión en metamask.io');
+return;
+}
+try {
+const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+const addr = accounts[0];
+connected = true;
+const btn = document.getElementById('walletBtn');
+btn.classList.add('connected');
+document.getElementById('walletLabel').textContent = addr.slice(0,6) + '...' + addr.slice(-4);
+const msg = document.getElementById('welcomeMsg');
+document.getElementById('walletAddr').textContent = addr;
+msg.style.display = 'block';
+setTimeout(() => { msg.style.display = 'none'; }, 6000);
+} catch (e) {
+console.log('Wallet connection rejected', e);
+}
+}
+
+// ═══════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════
+function observeReveal() {
+const els = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+els.forEach(el => obs.observe(el));
+}
+
+// INIT
+document.addEventListener('DOMContentLoaded', () => {
+renderCards();
+});
+</script>
+</body>
+</html>
