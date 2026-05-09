@@ -593,10 +593,11 @@
 // CONFIG INTELIGENTE — Solo edita aquí
 // ═══════════════════════════════════════
 const APP_CONFIG = {
-  gateway: "https://cloudflare-ipfs.com/ipfs/",
-  whatsapp: "525613338962", // Tu número con código de país
-  plantillas: [
-    {
+    // Usa esta gateway que es la más compatible con CIDs largos
+    gateway: "https://ipfs.io/ipfs/", 
+    whatsapp: "525613338962",
+    plantillas: [
+        {
       id: 1,
       nombre: "Médico Pro",
       categoria: "Salud",
