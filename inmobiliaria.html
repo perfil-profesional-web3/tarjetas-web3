@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inmobiliaria Nexo — Bienes Raíces Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--azul:#1d4ed8;--azul2:#3b82f6;--cielo:#eff6ff;--bg:#f8faff;--oscuro:#0f1c3f;--muted:#64748b;--verde:#10b981;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--oscuro);}
+
+  /* ── HEADER ── */
+  .header{background:linear-gradient(145deg,#0f1c3f,#1e3a8a,#1d4ed8);padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden;}
+  .header::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:48px;background:var(--bg);border-radius:50% 50% 0 0 / 48px 48px 0 0;}
+  .header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+  .logo-box{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;position:relative;z-index:1;}
+  .logo-ico{width:52px;height:52px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.25);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+  .logo-txt{text-align:left;}
+  .logo-txt h1{font-size:1.6rem;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1;}
+  .logo-txt span{font-size:0.72rem;color:#93c5fd;letter-spacing:2px;text-transform:uppercase;}
+  .header-sub{color:rgba(255,255,255,0.65);font-size:0.88rem;position:relative;z-index:1;}
+  .header-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px;position:relative;z-index:1;}
+  .chip{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#e0e7ff;font-size:0.72rem;padding:4px 12px;border-radius:20px;}
+
+  /* ── SEARCH BAR ── */
+  .search-wrap{padding:24px 20px 0;max-width:600px;margin:0 auto;}
+  .search-box{background:#fff;border-radius:16px;padding:6px 6px 6px 18px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 24px rgba(29,78,216,0.12);border:1.5px solid #dbeafe;}
+  .search-box input{flex:1;border:none;outline:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;color:var(--oscuro);background:transparent;}
+  .search-box input::placeholder{color:#94a3b8;}
+  .search-box select{border:none;outline:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;color:var(--muted);background:transparent;padding:4px 8px;}
+  .search-box button{background:var(--azul);color:#fff;border:none;padding:11px 20px;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;}
+  .search-box button:hover{background:#1e40af;}
+
+  /* ── CTAS ── */
+  .ctas{display:flex;gap:10px;padding:16px 20px;max-width:580px;margin:0 auto;flex-wrap:wrap;}
+  .cta-btn{display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .2s;flex:1;min-width:120px;justify-content:center;}
+  .cta-wa{background:#22c55e;color:#fff;}
+  .cta-wa:hover{background:#16a34a;transform:translateY(-1px);}
+  .cta-tel{background:var(--oscuro);color:#93c5fd;}
+  .cta-tel:hover{background:#1e3a8a;}
+  .cta-visita{background:var(--azul);color:#fff;}
+  .cta-visita:hover{background:#1e40af;transform:translateY(-1px);}
+
+  /* ── STATS ── */
+  .stats{display:flex;background:#fff;border-top:1px solid #dbeafe;border-bottom:1px solid #dbeafe;max-width:100%;}
+  .stat{flex:1;padding:16px 8px;text-align:center;border-right:1px solid #dbeafe;}
+  .stat:last-child{border-right:none;}
+  .stat .num{font-size:1.3rem;font-weight:800;color:var(--oscuro);}
+  .stat .lbl{font-size:0.68rem;color:var(--muted);margin-top:2px;}
+
+  /* ── SECTION ── */
+  .section{padding:24px 20px;max-width:620px;margin:0 auto;}
+  .sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .sec-head h2{font-size:1rem;font-weight:800;color:var(--oscuro);}
+  .sec-head a{font-size:0.8rem;color:var(--azul2);font-weight:600;text-decoration:none;}
+
+  /* ── PROPIEDADES ── */
+  .props{display:flex;flex-direction:column;gap:14px;}
+  .prop{background:#fff;border-radius:16px;border:1.5px solid #dbeafe;overflow:hidden;transition:all .25s;cursor:pointer;}
+  .prop:hover{border-color:var(--azul2);box-shadow:0 8px 24px rgba(29,78,216,0.1);transform:translateY(-2px);}
+  .prop-img{height:170px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;}
+  .prop-badges{position:absolute;top:10px;left:10px;display:flex;gap:6px;}
+  .badge{font-size:0.68rem;font-weight:700;padding:4px 10px;border-radius:6px;}
+  .badge-venta{background:#dbeafe;color:var(--azul);}
+  .badge-renta{background:#dcfce7;color:#15803d;}
+  .badge-nuevo{background:var(--oscuro);color:#93c5fd;}
+  .badge-dest{background:#fef3c7;color:#92400e;}
+  .prop-precio{position:absolute;bottom:10px;right:10px;background:rgba(15,28,63,0.9);color:#fff;font-size:0.88rem;font-weight:800;padding:6px 12px;border-radius:8px;backdrop-filter:blur(8px);}
+  .prop-body{padding:16px 18px;}
+  .prop-body h3{font-size:0.95rem;font-weight:700;margin-bottom:4px;}
+  .prop-body .dir{font-size:0.78rem;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:4px;}
+  .prop-specs{display:flex;gap:16px;margin-bottom:14px;}
+  .spec{display:flex;align-items:center;gap:5px;font-size:0.8rem;color:var(--muted);}
+  .spec strong{color:var(--oscuro);font-weight:700;}
+  .prop-actions{display:flex;gap:8px;}
+  .btn-info{flex:1;padding:10px;background:var(--cielo);color:var(--azul);border:1.5px solid #bfdbfe;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all .2s;}
+  .btn-info:hover{background:#dbeafe;}
+  .btn-visita{flex:1;padding:10px;background:var(--azul);color:#fff;border:none;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all .2s;}
+  .btn-visita:hover{background:#1e40af;}
+
+  /* ── CALCULADORA ── */
+  .calc{background:#fff;border-radius:16px;border:1.5px solid #dbeafe;padding:22px;}
+  .calc h3{font-size:0.95rem;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  .field label{font-size:0.75rem;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
+  .field input, .field select{width:100%;padding:10px 12px;border:1.5px solid #dbeafe;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;color:var(--oscuro);outline:none;transition:border-color .2s;background:var(--bg);}
+  .field input:focus, .field select:focus{border-color:var(--azul2);}
+  .calc button{width:100%;padding:13px;background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;border:none;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all .2s;}
+  .calc button:hover{filter:brightness(1.08);}
+  .calc-result{display:none;margin-top:14px;background:var(--cielo);border-radius:12px;padding:16px;}
+  .calc-result .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #bfdbfe;font-size:0.85rem;}
+  .calc-result .row:last-child{border-bottom:none;font-weight:800;color:var(--azul);font-size:0.92rem;}
+
+  /* ── SERVICIOS ── */
+  .srv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .srv{background:#fff;border-radius:14px;padding:18px;border:1.5px solid #dbeafe;transition:border-color .2s;}
+  .srv:hover{border-color:var(--azul2);}
+  .srv .ico{font-size:1.8rem;margin-bottom:10px;}
+  .srv h4{font-size:0.88rem;font-weight:700;margin-bottom:4px;}
+  .srv p{font-size:0.75rem;color:var(--muted);line-height:1.4;}
+
+  /* ── AGENTE ── */
+  .agente{background:#fff;border-radius:16px;border:1.5px solid #dbeafe;padding:22px;display:flex;gap:18px;align-items:center;}
+  .ag-avatar{width:72px;height:72px;border-radius:16px;background:var(--cielo);border:2px solid #bfdbfe;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;}
+  .ag-info h3{font-size:1rem;font-weight:800;margin-bottom:3px;}
+  .ag-info p{font-size:0.8rem;color:var(--muted);margin-bottom:10px;}
+  .ag-btns{display:flex;gap:8px;}
+  .ag-btn{padding:8px 14px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.78rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .2s;}
+  .ag-wa{background:#22c55e;color:#fff;}
+  .ag-call{background:var(--cielo);color:var(--azul);border:1.5px solid #bfdbfe;}
+
+  /* ── WEB3 ── */
+  .web3-badge{background:linear-gradient(135deg,#0f1c3f,#1e3a8a);border-radius:16px;padding:20px;text-align:center;margin:0 20px 28px;max-width:580px;margin-left:auto;margin-right:auto;}
+  .web3-badge strong{color:#93c5fd;font-size:0.88rem;}
+  .web3-badge p{color:rgba(255,255,255,0.45);font-size:0.75rem;margin-top:5px;}
+
+  footer{text-align:center;padding:22px;font-size:0.75rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-box">
+    <div class="logo-ico">🏠</div>
+    <div class="logo-txt">
+      <h1>Nexo Inmobiliaria</h1>
+      <span>Bienes Raíces Digital · Web3</span>
+    </div>
+  </div>
+  <div class="header-sub">Tu hogar ideal existe. Nosotros lo encontramos.</div>
+  <div class="header-chips">
+    <span class="chip">📍 CDMX & Área Metropolitana</span>
+    <span class="chip">✅ 500+ Propiedades</span>
+    <span class="chip">⭐ 4.9/5 Clientes</span>
+  </div>
+</div>
+
+<!-- BUSCADOR -->
+<div class="search-wrap">
+  <div class="search-box">
+    <input type="text" placeholder="Colonia, alcaldía o zona..." id="searchInput"/>
+    <select id="tipoSearch">
+      <option>Comprar</option>
+      <option>Rentar</option>
+    </select>
+    <button onclick="buscar()">Buscar</button>
+  </div>
+</div>
+
+<!-- CTAS -->
+<div class="ctas">
+  <a class="cta-btn cta-wa" href="https://wa.me/521XXXXXXXXXX?text=Hola,%20busco%20una%20propiedad">💬 WhatsApp</a>
+  <a class="cta-btn cta-tel" href="tel:+521XXXXXXXXXX">📞 Llamar</a>
+  <a class="cta-btn cta-visita" href="https://wa.me/521XXXXXXXXXX?text=Quiero%20agendar%20visita">🏡 Agendar Visita</a>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="num">500+</div><div class="lbl">Propiedades</div></div>
+  <div class="stat"><div class="num">18</div><div class="lbl">Años exp.</div></div>
+  <div class="stat"><div class="num">2,400+</div><div class="lbl">Familias</div></div>
+  <div class="stat"><div class="num">98%</div><div class="lbl">Satisfacción</div></div>
+</div>
+
+<!-- PROPIEDADES -->
+<div class="section">
+  <div class="sec-head">
+    <h2>Propiedades Destacadas</h2>
+    <a href="#" onclick="verMas()">Ver todas →</a>
+  </div>
+  <div class="props">
+
+    <!-- Prop 1 -->
+    <div class="prop">
+      <div class="prop-img" style="background:linear-gradient(135deg,#dbeafe,#eff6ff);">
+        🏠
+        <div class="prop-badges">
+          <span class="badge badge-venta">VENTA</span>
+          <span class="badge badge-nuevo">NUEVO</span>
+        </div>
+        <div class="prop-precio">$3,850,000</div>
+      </div>
+      <div class="prop-body">
+        <h3>Casa Residencial en Coyoacán</h3>
+        <div class="dir">📍 Coyoacán, CDMX · A 5 min del metro</div>
+        <div class="prop-specs">
+          <div class="spec">🛏 <strong>3</strong> rec.</div>
+          <div class="spec">🚿 <strong>2.5</strong> baños</div>
+          <div class="spec">📐 <strong>180</strong> m²</div>
+          <div class="spec">🚗 <strong>2</strong> cajones</div>
+        </div>
+        <div class="prop-actions">
+          <button class="btn-info" onclick="infoPropiedad('Casa Residencial Coyoacán $3,850,000')">Ver detalles</button>
+          <button class="btn-visita" onclick="agendarVisita('Casa Residencial Coyoacán')">Agendar visita</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prop 2 -->
+    <div class="prop">
+      <div class="prop-img" style="background:linear-gradient(135deg,#dcfce7,#f0fdf4);">
+        🏢
+        <div class="prop-badges">
+          <span class="badge badge-renta">RENTA</span>
+          <span class="badge badge-dest">DESTACADO</span>
+        </div>
+        <div class="prop-precio">$18,500/mes</div>
+      </div>
+      <div class="prop-body">
+        <h3>Departamento Moderno en Polanco</h3>
+        <div class="dir">📍 Polanco, CDMX · Torre con amenidades</div>
+        <div class="prop-specs">
+          <div class="spec">🛏 <strong>2</strong> rec.</div>
+          <div class="spec">🚿 <strong>2</strong> baños</div>
+          <div class="spec">📐 <strong>95</strong> m²</div>
+          <div class="spec">🏊 <strong>Pool</strong></div>
+        </div>
+        <div class="prop-actions">
+          <button class="btn-info" onclick="infoPropiedad('Depto Polanco $18,500/mes')">Ver detalles</button>
+          <button class="btn-visita" onclick="agendarVisita('Departamento Polanco')">Agendar visita</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prop 3 -->
+    <div class="prop">
+      <div class="prop-img" style="background:linear-gradient(135deg,#fef3c7,#fffbeb);">
+        🌿
+        <div class="prop-badges">
+          <span class="badge badge-venta">VENTA</span>
+        </div>
+        <div class="prop-precio">$6,200,000</div>
+      </div>
+      <div class="prop-body">
+        <h3>Casa con Jardín en Pedregal</h3>
+        <div class="dir">📍 Pedregal de San Ángel · Zona Residencial</div>
+        <div class="prop-specs">
+          <div class="spec">🛏 <strong>4</strong> rec.</div>
+          <div class="spec">🚿 <strong>3.5</strong> baños</div>
+          <div class="spec">📐 <strong>320</strong> m²</div>
+          <div class="spec">🌳 <strong>Jardín</strong></div>
+        </div>
+        <div class="prop-actions">
+          <button class="btn-info" onclick="infoPropiedad('Casa Pedregal $6,200,000')">Ver detalles</button>
+          <button class="btn-visita" onclick="agendarVisita('Casa con Jardín Pedregal')">Agendar visita</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CALCULADORA HIPOTECA -->
+<div class="section">
+  <div class="sec-head"><h2>🧮 Calculadora de Hipoteca</h2></div>
+  <div class="calc">
+    <h3>💡 Estima tu mensualidad INFONAVIT / FOVISSSTE</h3>
+    <div class="calc-grid">
+      <div class="field"><label>Valor de la propiedad</label><input type="number" id="valorProp" placeholder="$3,000,000" /></div>
+      <div class="field"><label>Enganche (%)</label><input type="number" id="enganche" placeholder="20" /></div>
+      <div class="field"><label>Plazo (años)</label><select id="plazo"><option value="10">10 años</option><option value="15">15 años</option><option value="20" selected>20 años</option><option value="25">25 años</option><option value="30">30 años</option></select></div>
+      <div class="field"><label>Tasa anual (%)</label><input type="number" id="tasa" placeholder="10.5" /></div>
+    </div>
+    <button onclick="calcularHipoteca()">Calcular Mensualidad</button>
+    <div class="calc-result" id="calcResult">
+      <div class="row"><span>Valor del inmueble</span><span id="rValor">-</span></div>
+      <div class="row"><span>Enganche requerido</span><span id="rEnganche">-</span></div>
+      <div class="row"><span>Monto a financiar</span><span id="rMonto">-</span></div>
+      <div class="row"><span>Plazo</span><span id="rPlazo">-</span></div>
+      <div class="row"><span>💰 Mensualidad estimada</span><span id="rMensual">-</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<div class="section">
+  <div class="sec-head"><h2>Nuestros Servicios</h2></div>
+  <div class="srv-grid">
+    <div class="srv"><div class="ico">🔑</div><h4>Compra &amp; Venta</h4><p>Asesoría completa, valuación y trámites notariales</p></div>
+    <div class="srv"><div class="ico">🏘️</div><h4>Arrendamiento</h4><p>Contratos, cobranza y administración de tu inmueble</p></div>
+    <div class="srv"><div class="ico">📋</div><h4>Avalúos</h4><p>Valuación oficial para crédito hipotecario o venta</p></div>
+    <div class="srv"><div class="ico">🤝</div><h4>Asesoría Hipotecaria</h4><p>Comparamos INFONAVIT, FOVISSSTE y banca privada</p></div>
+    <div class="srv"><div class="ico">🏗️</div><h4>Proyectos Nuevos</h4><p>Preventas y desarrollos con precio de lanzamiento</p></div>
+    <div class="srv"><div class="ico">💼</div><h4>Inversión Inmobiliaria</h4><p>Cartera de propiedades con alto ROI garantizado</p></div>
+  </div>
+</div>
+
+<!-- AGENTE -->
+<div class="section">
+  <div class="sec-head"><h2>Tu Agente Asignado</h2></div>
+  <div class="agente">
+    <div class="ag-avatar">👩‍💼</div>
+    <div class="ag-info">
+      <h3>Ing. Patricia Solís</h3>
+      <p>Especialista en zona sur · 12 años en el mercado · +300 operaciones</p>
+      <div class="ag-btns">
+        <a class="ag-btn ag-wa" href="https://wa.me/521XXXXXXXXXX?text=Hola%20Patricia">💬 WhatsApp</a>
+        <a class="ag-btn ag-call" href="tel:+521XXXXXXXXXX">📞 Llamar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WEB3 -->
+<div class="web3-badge">
+  <strong>⬡ Escrituras y contratos verificables en IPFS · Web3</strong>
+  <p>Documentos inmobiliarios almacenados en la red descentralizada · Inmutables y permanentes</p>
+</div>
+
+<footer>© 2025 Nexo Inmobiliaria · CDMX · Cédula de Agente 2024-AMPI-004821</footer>
+
+<script>
+// Calculadora hipoteca
+function calcularHipoteca() {
+  const val = parseFloat(document.getElementById('valorProp').value);
+  const eng = parseFloat(document.getElementById('enganche').value) || 20;
+  const años = parseInt(document.getElementById('plazo').value);
+  const tasa = parseFloat(document.getElementById('tasa').value) || 10.5;
+  if (!val || val <= 0) { alert('Ingresa el valor de la propiedad'); return; }
+  const engancheAmt = val * (eng / 100);
+  const credito = val - engancheAmt;
+  const tasaMens = tasa / 100 / 12;
+  const meses = años * 12;
+  const mensual = credito * (tasaMens * Math.pow(1 + tasaMens, meses)) / (Math.pow(1 + tasaMens, meses) - 1);
+  const fmt = n => '$' + n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  document.getElementById('rValor').textContent = fmt(val);
+  document.getElementById('rEnganche').textContent = fmt(engancheAmt) + ` (${eng}%)`;
+  document.getElementById('rMonto').textContent = fmt(credito);
+  document.getElementById('rPlazo').textContent = `${años} años (${meses} meses)`;
+  document.getElementById('rMensual').textContent = fmt(mensual);
+  document.getElementById('calcResult').style.display = 'block';
+}
+
+function agendarVisita(prop) {
+  const msg = encodeURIComponent(`Hola! Me interesa agendar una visita para:\n\n${prop}\n\n¿Cuándo hay disponibilidad?`);
+  window.open(`https://wa.me/521XXXXXXXXXX?text=${msg}`, '_blank');
+}
+
+function infoPropiedad(prop) {
+  const msg = encodeURIComponent(`Hola! Quisiera más información sobre:\n\n${prop}\n\n¿Pueden enviarme detalles?`);
+  window.open(`https://wa.me/521XXXXXXXXXX?text=${msg}`, '_blank');
+}
+
+function buscar() {
+  const q = document.getElementById('searchInput').value;
+  const tipo = document.getElementById('tipoSearch').value;
+  if (!q) return;
+  const msg = encodeURIComponent(`Hola! Busco una propiedad para ${tipo} en: ${q}\n\n¿Qué opciones tienen disponibles?`);
+  window.open(`https://wa.me/521XXXXXXXXXX?text=${msg}`, '_blank');
+}
+
+function verMas() {
+  const msg = encodeURIComponent('Hola! ¿Pueden enviarme el catálogo completo de propiedades disponibles?');
+  window.open(`https://wa.me/521XXXXXXXXXX?text=${msg}`, '_blank');
+}
+</script>
+</body>
+</html>

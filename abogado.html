@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lic. Valentina Ruiz — Abogada Corporativa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--oro:#b8860b;--oro2:#d4a017;--crema:#faf6f0;--oscuro:#1a1209;--muted:#6b5e4e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Outfit',sans-serif;background:var(--crema);color:var(--oscuro);}
+
+  .header{background:linear-gradient(160deg,#1a1209 60%,#2d1f0a);padding:56px 24px 40px;text-align:center;position:relative;}
+  .header::after{content:'';display:block;height:3px;background:linear-gradient(to right,transparent,var(--oro),transparent);margin-top:32px;}
+  .avatar{width:100px;height:100px;border-radius:50%;background:#2d1f0a;border:3px solid var(--oro);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;}
+  .header h1{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;letter-spacing:-0.5px;margin-bottom:6px;}
+  .esp{color:var(--oro2);font-size:0.9rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;}
+  .ced{color:rgba(255,255,255,0.45);font-size:0.78rem;}
+
+  .ctas{display:flex;gap:12px;justify-content:center;padding:28px 20px;flex-wrap:wrap;max-width:520px;margin:0 auto;}
+  .cta-btn{display:flex;align-items:center;gap:8px;padding:13px 20px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .2s;flex:1;min-width:120px;justify-content:center;}
+  .cta-wa{background:#22c55e;color:#fff;}
+  .cta-wa:hover{background:#16a34a;}
+  .cta-tel{background:var(--oscuro);color:var(--oro2);border:1.5px solid var(--oro);}
+  .cta-tel:hover{background:#2d1f0a;}
+  .cta-dir{background:#fff;color:var(--oscuro);border:1.5px solid #ddd6c8;}
+  .cta-dir:hover{border-color:var(--oro);}
+
+  .section{padding:24px 20px;max-width:580px;margin:0 auto;}
+  .section-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--oscuro);border-left:3px solid var(--oro);padding-left:12px;margin-bottom:18px;}
+
+  .areas{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .area{background:#fff;border-radius:12px;padding:18px;border:1px solid #e8dfc8;text-align:center;}
+  .area .ico{font-size:1.8rem;margin-bottom:8px;}
+  .area h4{font-size:0.88rem;font-weight:600;color:var(--oscuro);}
+  .area p{font-size:0.75rem;color:var(--muted);margin-top:3px;}
+
+  .proceso{display:flex;flex-direction:column;gap:0;}
+  .paso{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid #e8dfc8;}
+  .paso:last-child{border-bottom:none;}
+  .paso-num{width:36px;height:36px;border-radius:50%;background:var(--oscuro);color:var(--oro2);font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .paso h4{font-size:0.92rem;font-weight:600;margin-bottom:3px;}
+  .paso p{font-size:0.8rem;color:var(--muted);}
+
+  .testimonial{background:#fff;border-radius:14px;padding:22px;border:1px solid #e8dfc8;margin-bottom:10px;position:relative;}
+  .testimonial::before{content:'"';font-family:'Playfair Display',serif;font-size:4rem;color:var(--oro2);opacity:0.3;position:absolute;top:8px;left:16px;line-height:1;}
+  .testimonial p{font-size:0.88rem;color:var(--muted);line-height:1.6;padding-left:8px;}
+  .testimonial .autor{font-size:0.8rem;font-weight:600;color:var(--oscuro);margin-top:10px;padding-left:8px;}
+
+  .info-strip{display:flex;gap:0;background:#fff;border-radius:14px;border:1px solid #e8dfc8;overflow:hidden;}
+  .info-item{flex:1;padding:18px 12px;text-align:center;border-right:1px solid #e8dfc8;}
+  .info-item:last-child{border-right:none;}
+  .info-item .num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--oscuro);}
+  .info-item .lbl{font-size:0.72rem;color:var(--muted);margin-top:2px;}
+
+  .web3-badge{background:linear-gradient(135deg,#1a1209,#2d1f0a);border:1px solid rgba(184,134,11,0.3);border-radius:14px;padding:18px;text-align:center;margin:0 20px 28px;max-width:540px;margin-left:auto;margin-right:auto;}
+  .web3-badge strong{color:var(--oro2);font-size:0.85rem;}
+  .web3-badge p{color:rgba(255,255,255,0.45);font-size:0.75rem;margin-top:4px;}
+
+  footer{text-align:center;padding:20px;font-size:0.75rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="avatar">⚖️</div>
+  <h1>Lic. Valentina Ruiz</h1>
+  <div class="esp">Abogada Corporativa &amp; Familiar</div>
+  <div class="ced">Cédula Profesional · 7741293 · UNAM</div>
+</div>
+
+<div class="ctas">
+  <a class="cta-btn cta-wa" href="https://wa.me/521XXXXXXXXXX?text=Hola%20Licenciada,%20requiero%20asesoría%20legal">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Consulta Gratis
+  </a>
+  <a class="cta-btn cta-tel" href="tel:+521XXXXXXXXXX">📞 Llamar</a>
+  <a class="cta-btn cta-dir" href="https://maps.google.com" target="_blank">📍 Oficina</a>
+</div>
+
+<div class="section">
+  <div class="info-strip">
+    <div class="info-item"><div class="num">15+</div><div class="lbl">Años de exp.</div></div>
+    <div class="info-item"><div class="num">800+</div><div class="lbl">Casos ganados</div></div>
+    <div class="info-item"><div class="num">98%</div><div class="lbl">Satisfacción</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Áreas de Práctica</div>
+  <div class="areas">
+    <div class="area"><div class="ico">🏢</div><h4>Derecho Corporativo</h4><p>Contratos, fusiones y constitución de empresas</p></div>
+    <div class="area"><div class="ico">👨‍👩‍👧</div><h4>Derecho Familiar</h4><p>Divorcios, custodia y sucesiones</p></div>
+    <div class="area"><div class="ico">🏠</div><h4>Inmobiliario</h4><p>Compraventa, arrendamiento y escrituración</p></div>
+    <div class="area"><div class="ico">📋</div><h4>Laboral</h4><p>Despidos, IMSS y contratos colectivos</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Proceso de Trabajo</div>
+  <div class="proceso">
+    <div class="paso"><div class="paso-num">1</div><div><h4>Consulta Inicial Gratuita</h4><p>Evaluamos tu caso sin costo ni compromiso</p></div></div>
+    <div class="paso"><div class="paso-num">2</div><div><h4>Diagnóstico Legal</h4><p>Te explicamos opciones, tiempos y honorarios</p></div></div>
+    <div class="paso"><div class="paso-num">3</div><div><h4>Estrategia y Representación</h4><p>Actuamos en tu nombre con total confidencialidad</p></div></div>
+    <div class="paso"><div class="paso-num">4</div><div><h4>Seguimiento Constante</h4><p>Reportes semanales del avance de tu caso</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Testimonios</div>
+  <div class="testimonial"><p>La Lic. Ruiz resolvió mi caso de divorcio con total profesionalismo. Siempre estuvo disponible y me explicó todo con claridad.</p><div class="autor">— Carlos M., cliente corporativo</div></div>
+  <div class="testimonial"><p>Recuperé mi empresa gracias a su asesoría. Su conocimiento en derecho mercantil es extraordinario.</p><div class="autor">— Sofía L., empresaria</div></div>
+</div>
+
+<div class="web3-badge">
+  <strong>⬡ Página alojada en IPFS · Web3</strong>
+  <p>Información verificable en la blockchain · Sin censura posible</p>
+</div>
+
+<footer>© 2025 Lic. Valentina Ruiz · Despacho Jurídico Ruiz &amp; Asociados</footer>
+</body>
+</html>

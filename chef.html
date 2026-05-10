@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chef Marco Santini — Restaurante & Catering</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--naranja:#ea580c;--naranja2:#f97316;--crema:#fffbf5;--oscuro:#1c0f00;--muted:#78502a;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Outfit',sans-serif;background:var(--crema);color:var(--oscuro);}
+
+  .header{background:linear-gradient(160deg,#1c0f00,#3d1a00);padding:50px 24px 36px;text-align:center;}
+  .avatar{width:100px;height:100px;border-radius:50%;background:#3d1a00;border:3px solid var(--naranja2);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;}
+  .header h1{font-family:'Cormorant Garamond',serif;font-size:2rem;color:#fff;margin-bottom:4px;}
+  .header .esp{color:var(--naranja2);font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+  .stars{color:var(--naranja2);font-size:1rem;letter-spacing:3px;}
+
+  .hero-img{height:200px;background:linear-gradient(135deg,#3d1a00,#7c2d00);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;}
+  .hero-img span{font-size:3rem;}
+  .hero-img p{color:rgba(255,255,255,0.5);font-size:0.8rem;font-style:italic;}
+
+  .ctas{display:flex;gap:10px;justify-content:center;padding:24px 20px;flex-wrap:wrap;max-width:520px;margin:0 auto;}
+  .cta-btn{display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:10px;font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .2s;flex:1;min-width:120px;justify-content:center;}
+  .cta-reserva{background:var(--naranja);color:#fff;}
+  .cta-reserva:hover{background:#c2410c;}
+  .cta-wa{background:#22c55e;color:#fff;}
+  .cta-wa:hover{background:#16a34a;}
+  .cta-dir{background:#fff;color:var(--oscuro);border:1.5px solid #ead5b8;}
+  .cta-dir:hover{border-color:var(--naranja);}
+
+  .section{padding:24px 20px;max-width:580px;margin:0 auto;}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;color:var(--oscuro);margin-bottom:18px;text-align:center;}
+  .sep{width:60px;height:2px;background:linear-gradient(to right,var(--naranja),var(--naranja2));margin:0 auto 20px;}
+
+  /* MENU */
+  .menu-tabs{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;padding-bottom:4px;}
+  .tab{padding:8px 18px;border-radius:100px;font-size:0.82rem;font-weight:600;cursor:pointer;white-space:nowrap;border:1.5px solid #ead5b8;background:transparent;color:var(--muted);transition:all .2s;}
+  .tab.active{background:var(--naranja);color:#fff;border-color:var(--naranja);}
+  .platillo{background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:10px;border:1px solid #ead5b8;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  .platillo .info h4{font-size:0.92rem;font-weight:600;margin-bottom:3px;}
+  .platillo .info p{font-size:0.78rem;color:var(--muted);}
+  .platillo .precio{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--naranja);white-space:nowrap;}
+
+  /* SERVICIOS */
+  .servicios-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .srv{background:#fff;border-radius:12px;padding:18px;border:1px solid #ead5b8;text-align:center;}
+  .srv .ico{font-size:2rem;margin-bottom:8px;}
+  .srv h4{font-size:0.88rem;font-weight:600;}
+  .srv p{font-size:0.75rem;color:var(--muted);margin-top:3px;}
+
+  .horario-list{background:#fff;border-radius:14px;border:1px solid #ead5b8;overflow:hidden;}
+  .horario-row{display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #fdf0e0;}
+  .horario-row:last-child{border-bottom:none;}
+  .horario-row .dia{font-size:0.88rem;font-weight:500;}
+  .horario-row .hora{font-size:0.85rem;color:var(--naranja);font-weight:600;}
+  .horario-row .cerrado{font-size:0.85rem;color:#ef4444;}
+
+  .web3-badge{background:linear-gradient(135deg,#1c0f00,#3d1a00);border-radius:14px;padding:18px;text-align:center;margin:0 20px 28px;max-width:540px;margin-left:auto;margin-right:auto;}
+  .web3-badge strong{color:var(--naranja2);font-size:0.85rem;}
+  .web3-badge p{color:rgba(255,255,255,0.45);font-size:0.75rem;margin-top:4px;}
+  footer{text-align:center;padding:20px;font-size:0.75rem;color:var(--muted);}
+
+  .menu-content{display:none;}
+  .menu-content.active{display:block;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="avatar">👨‍🍳</div>
+  <h1>Chef Marco Santini</h1>
+  <div class="esp">Cocina Italiana · Fusión Mexicana</div>
+  <div class="stars">★★★★★</div>
+</div>
+
+<div class="hero-img">
+  <span>🍝</span>
+  <p>Fotografía del restaurante · Reemplazar con imagen Base64</p>
+</div>
+
+<div class="ctas">
+  <a class="cta-btn cta-reserva" href="https://wa.me/521XXXXXXXXXX?text=Quiero%20reservar%20una%20mesa">🍽️ Reservar Mesa</a>
+  <a class="cta-btn cta-wa" href="https://wa.me/521XXXXXXXXXX">💬 WhatsApp</a>
+  <a class="cta-btn cta-dir" href="https://maps.google.com" target="_blank">📍 Ubicación</a>
+</div>
+
+<div class="section">
+  <div class="section-title">Menú Destacado</div>
+  <div class="sep"></div>
+  <div class="menu-tabs">
+    <button class="tab active" onclick="showMenu('entradas',this)">Entradas</button>
+    <button class="tab" onclick="showMenu('pastas',this)">Pastas</button>
+    <button class="tab" onclick="showMenu('carnes',this)">Carnes</button>
+    <button class="tab" onclick="showMenu('postres',this)">Postres</button>
+  </div>
+  <div id="entradas" class="menu-content active">
+    <div class="platillo"><div class="info"><h4>Bruschetta Tricolore</h4><p>Jitomate cherry, albahaca fresca, aceite de oliva virgen</p></div><div class="precio">$120</div></div>
+    <div class="platillo"><div class="info"><h4>Carpaccio di Manzo</h4><p>Res italiana, rúcula, parmesano y alcaparras</p></div><div class="precio">$195</div></div>
+    <div class="platillo"><div class="info"><h4>Burrata Caprese</h4><p>Burrata fresca, jitomate heirloom, pesto casero</p></div><div class="precio">$175</div></div>
+  </div>
+  <div id="pastas" class="menu-content">
+    <div class="platillo"><div class="info"><h4>Tagliatelle al Tartufo</h4><p>Pasta fresca, mantequilla trufada, parmesano 24 meses</p></div><div class="precio">$320</div></div>
+    <div class="platillo"><div class="info"><h4>Cacio e Pepe</h4><p>Receta romana original, pecorino romano, pimienta negra</p></div><div class="precio">$260</div></div>
+  </div>
+  <div id="carnes" class="menu-content">
+    <div class="platillo"><div class="info"><h4>Bistecca Fiorentina</h4><p>Corte T-bone, 600g, a la brasa con hierbas frescas</p></div><div class="precio">$680</div></div>
+    <div class="platillo"><div class="info"><h4>Osso Buco Milanese</h4><p>Chambarete de res 8h, gremolata, risotto azafrán</p></div><div class="precio">$450</div></div>
+  </div>
+  <div id="postres" class="menu-content">
+    <div class="platillo"><div class="info"><h4>Tiramisú Clásico</h4><p>Receta original véneta, mascarpone, café expreso</p></div><div class="precio">$135</div></div>
+    <div class="platillo"><div class="info"><h4>Panna Cotta al Frutos Rojos</h4><p>Crema italiana, coulis de frambuesa fresca</p></div><div class="precio">$110</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Servicios</div>
+  <div class="sep"></div>
+  <div class="servicios-grid">
+    <div class="srv"><div class="ico">🥂</div><h4>Cenas Privadas</h4><p>Grupos de 2 a 20 personas con menú personalizado</p></div>
+    <div class="srv"><div class="ico">🎂</div><h4>Eventos Especiales</h4><p>Bodas, cumpleaños y celebraciones empresariales</p></div>
+    <div class="srv"><div class="ico">🚗</div><h4>Catering a Domicilio</h4><p>Llevamos la experiencia a tu hogar u oficina</p></div>
+    <div class="srv"><div class="ico">👨‍🍳</div><h4>Chef en Casa</h4><p>Tu chef privado para ocasiones exclusivas</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Horarios</div>
+  <div class="sep"></div>
+  <div class="horario-list">
+    <div class="horario-row"><span class="dia">Martes — Viernes</span><span class="hora">14:00 — 23:00</span></div>
+    <div class="horario-row"><span class="dia">Sábado</span><span class="hora">13:00 — 23:30</span></div>
+    <div class="horario-row"><span class="dia">Domingo</span><span class="hora">13:00 — 18:00</span></div>
+    <div class="horario-row"><span class="dia">Lunes</span><span class="cerrado">Descanso</span></div>
+  </div>
+</div>
+
+<div class="web3-badge">
+  <strong>⬡ Menú en IPFS · Siempre actualizado</strong>
+  <p>Tu reservación es segura · Datos protegidos en Web3</p>
+</div>
+<footer>© 2025 Chef Marco Santini · Ristorante Santini · CDMX</footer>
+
+<script>
+function showMenu(id, btn) {
+  document.querySelectorAll('.menu-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

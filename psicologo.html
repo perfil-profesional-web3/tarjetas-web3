@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psic. Laura Vega — Psicóloga Clínica</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--rosa:#db2777;--rosa2:#ec4899;--lila:#f5f0ff;--bg:#fdf4f9;--oscuro:#2d1b33;--muted:#7c5b8a;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--oscuro);}
+
+  .header{background:linear-gradient(160deg,#2d1b33,#6d2857);padding:50px 24px 44px;text-align:center;position:relative;}
+  .header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:40px;background:var(--bg);clip-path:ellipse(55% 100% at 50% 100%);}
+  .avatar{width:100px;height:100px;border-radius:50%;background:#6d2857;border:3px solid var(--rosa2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;}
+  .header h1{font-size:1.7rem;font-weight:800;color:#fff;margin-bottom:4px;}
+  .esp{color:#f9a8d4;font-size:0.85rem;margin-bottom:6px;}
+  .ced{color:rgba(255,255,255,0.5);font-size:0.78rem;}
+
+  .citas-banner{background:linear-gradient(135deg,var(--rosa),var(--rosa2));margin:24px 20px 0;border-radius:16px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;max-width:540px;margin-left:auto;margin-right:auto;margin-top:24px;}
+  .citas-banner p{color:#fff;font-size:0.9rem;font-weight:600;}
+  .citas-banner span{color:rgba(255,255,255,0.8);font-size:0.78rem;display:block;margin-top:2px;}
+  .btn-agendar{background:#fff;color:var(--rosa);font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:700;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;white-space:nowrap;text-decoration:none;}
+
+  .ctas{display:flex;gap:10px;padding:16px 20px;max-width:520px;margin:0 auto;flex-wrap:wrap;}
+  .cta-btn{display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .2s;flex:1;min-width:110px;justify-content:center;}
+  .cta-wa{background:#22c55e;color:#fff;}
+  .cta-tel{background:var(--oscuro);color:#f9a8d4;}
+  .cta-tel{background:var(--oscuro);color:#f9a8d4;}
+  .cta-video{background:var(--lila);color:var(--rosa);border:1.5px solid #e9d5ff;}
+  .cta-video:hover{background:#ede9fe;}
+
+  .section{padding:22px 20px;max-width:580px;margin:0 auto;}
+  .section h2{font-size:1rem;font-weight:800;color:var(--oscuro);margin-bottom:16px;}
+
+  /* ESPECIALIDADES */
+  .espec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .espec{background:#fff;border-radius:14px;padding:18px;border:1px solid #f3e8ff;text-align:center;}
+  .espec .ico{font-size:2rem;margin-bottom:8px;}
+  .espec h4{font-size:0.88rem;font-weight:700;margin-bottom:3px;}
+  .espec p{font-size:0.75rem;color:var(--muted);}
+
+  /* PROCESO TERAPEUTICO */
+  .steps{display:flex;flex-direction:column;gap:12px;}
+  .step{background:#fff;border-radius:14px;padding:16px 18px;border:1px solid #f3e8ff;display:flex;gap:14px;align-items:center;}
+  .step .bubble{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--rosa),var(--rosa2));color:#fff;font-weight:800;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step h4{font-size:0.9rem;font-weight:700;margin-bottom:2px;}
+  .step p{font-size:0.78rem;color:var(--muted);}
+
+  /* TARIFAS */
+  .tarifas{display:flex;flex-direction:column;gap:10px;}
+  .tarifa{background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #f3e8ff;display:flex;justify-content:space-between;align-items:center;}
+  .tarifa h4{font-size:0.9rem;font-weight:700;}
+  .tarifa p{font-size:0.78rem;color:var(--muted);margin-top:2px;}
+  .tarifa .precio{font-size:1.1rem;font-weight:800;color:var(--rosa);}
+
+  /* FRASE */
+  .frase{background:linear-gradient(135deg,#fdf4f9,var(--lila));border-radius:16px;padding:24px;text-align:center;margin:0 20px;max-width:540px;margin-left:auto;margin-right:auto;border:1px solid #f3e8ff;}
+  .frase p{font-size:1.05rem;font-style:italic;color:var(--oscuro);line-height:1.6;}
+  .frase span{display:block;font-size:0.78rem;color:var(--muted);margin-top:8px;}
+
+  .web3-badge{background:linear-gradient(135deg,#2d1b33,#4a1942);border-radius:14px;padding:18px;text-align:center;margin:20px 20px 28px;max-width:540px;margin-left:auto;margin-right:auto;}
+  .web3-badge strong{color:#f9a8d4;font-size:0.85rem;}
+  .web3-badge p{color:rgba(255,255,255,0.4);font-size:0.75rem;margin-top:4px;}
+  footer{text-align:center;padding:20px;font-size:0.75rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="avatar">🧠</div>
+  <h1>Psic. Laura Vega</h1>
+  <div class="esp">Psicóloga Clínica · Terapia Cognitivo-Conductual</div>
+  <div class="ced">Cédula 9923187 · Maestría UNAM · 10 años de experiencia</div>
+</div>
+
+<div class="citas-banner">
+  <div><p>¡Citas disponibles esta semana!</p><span>Presencial y videollamada</span></div>
+  <a class="btn-agendar" href="https://wa.me/521XXXXXXXXXX?text=Hola,%20quiero%20agendar%20una%20cita">Agendar →</a>
+</div>
+
+<div class="ctas">
+  <a class="cta-btn cta-wa" href="https://wa.me/521XXXXXXXXXX">💬 WhatsApp</a>
+  <a class="cta-btn cta-tel" href="tel:+521XXXXXXXXXX">📞 Llamar</a>
+  <a class="cta-btn cta-video" href="https://wa.me/521XXXXXXXXXX?text=Quiero%20una%20sesion%20online">📹 Online</a>
+</div>
+
+<div class="section">
+  <h2>Áreas de Especialidad</h2>
+  <div class="espec-grid">
+    <div class="espec"><div class="ico">😰</div><h4>Ansiedad y Estrés</h4><p>Ataques de pánico, ansiedad social, estrés laboral</p></div>
+    <div class="espec"><div class="ico">💔</div><h4>Depresión</h4><p>Tristeza persistente, motivación y autoestima</p></div>
+    <div class="espec"><div class="ico">👫</div><h4>Terapia de Pareja</h4><p>Comunicación, conflictos y reconstrucción de vínculos</p></div>
+    <div class="espec"><div class="ico">🌱</div><h4>Crecimiento Personal</h4><p>Autoconocimiento, límites y desarrollo emocional</p></div>
+    <div class="espec"><div class="ico">😴</div><h4>Insomnio y Sueño</h4><p>Terapia cognitiva para el insomnio (TCC-I)</p></div>
+    <div class="espec"><div class="ico">💼</div><h4>Burnout Laboral</h4><p>Agotamiento profesional y equilibrio vida-trabajo</p></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>¿Cómo funciona la terapia?</h2>
+  <div class="steps">
+    <div class="step"><div class="bubble">1</div><div><h4>Primera Sesión de Evaluación</h4><p>Exploramos juntos tu situación actual sin juicios</p></div></div>
+    <div class="step"><div class="bubble">2</div><div><h4>Plan Terapéutico Personalizado</h4><p>Definimos objetivos claros y el proceso a seguir</p></div></div>
+    <div class="step"><div class="bubble">3</div><div><h4>Sesiones Semanales</h4><p>50 minutos de trabajo enfocado con técnicas TCC</p></div></div>
+    <div class="step"><div class="bubble">4</div><div><h4>Seguimiento y Cierre</h4><p>Evaluamos avances y consolidamos los cambios</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Tarifas</h2>
+  <div class="tarifas">
+    <div class="tarifa"><div><h4>Sesión Individual</h4><p>50 minutos · Presencial o videollamada</p></div><div class="precio">$700</div></div>
+    <div class="tarifa"><div><h4>Terapia de Pareja</h4><p>75 minutos · Presencial o videollamada</p></div><div class="precio">$950</div></div>
+    <div class="tarifa"><div><h4>Paquete 4 Sesiones</h4><p>Ahorra $400 · Válido 30 días</p></div><div class="precio">$2,400</div></div>
+    <div class="tarifa"><div><h4>Primera Consulta</h4><p>Evaluación inicial sin compromiso</p></div><div class="precio">$400</div></div>
+  </div>
+</div>
+
+<div class="frase">
+  <p>"El primer paso para el cambio es la conciencia. El segundo es la aceptación."</p>
+  <span>— Nathaniel Branden</span>
+</div>
+
+<div class="web3-badge">
+  <strong>⬡ Tu privacidad protegida · IPFS Web3</strong>
+  <p>Información confidencial · Sin rastreo · Sin servidores vulnerables</p>
+</div>
+<footer>© 2025 Psic. Laura Vega · Consulta Psicológica Integral · CDMX</footer>
+</body>
+</html>

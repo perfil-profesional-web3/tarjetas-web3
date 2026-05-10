@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arq. Diana Torres — Arquitectura & Diseño</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root{--verde:#0d9488;--verde2:#14b8a6;--bg:#f8fafb;--oscuro:#0f1c1a;--muted:#5f7470;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--oscuro);}
+
+  .header{background:var(--oscuro);padding:48px 24px 40px;text-align:center;}
+  .avatar{width:96px;height:96px;border-radius:16px;background:#1a2e2c;border:2px solid var(--verde2);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:2.6rem;}
+  .header h1{font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;margin-bottom:4px;}
+  .esp{color:var(--verde2);font-size:0.82rem;letter-spacing:2.5px;text-transform:uppercase;}
+
+  .stats-bar{display:flex;background:#fff;border-bottom:1px solid #e2eceb;}
+  .stat{flex:1;padding:18px 12px;text-align:center;border-right:1px solid #e2eceb;}
+  .stat:last-child{border-right:none;}
+  .stat .num{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--oscuro);}
+  .stat .lbl{font-size:0.72rem;color:var(--muted);margin-top:2px;}
+
+  .ctas{display:flex;gap:10px;padding:20px;max-width:560px;margin:0 auto;flex-wrap:wrap;}
+  .cta-btn{display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:10px;font-family:'Space Grotesk',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .2s;flex:1;min-width:120px;justify-content:center;}
+  .cta-wa{background:#22c55e;color:#fff;}
+  .cta-wa:hover{background:#16a34a;}
+  .cta-tel{background:var(--oscuro);color:var(--verde2);}
+  .cta-tel:hover{background:#1a2e2c;}
+  .cta-port{background:var(--verde);color:#fff;}
+  .cta-port:hover{background:#0f766e;}
+
+  .section{padding:24px 20px;max-width:600px;margin:0 auto;}
+  .section h2{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--oscuro);margin-bottom:16px;}
+
+  /* PORTFOLIO */
+  .port-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .port-item{border-radius:12px;overflow:hidden;background:#e2eceb;position:relative;height:130px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
+  .port-item .ico{font-size:2.2rem;}
+  .port-item .lbl{font-size:0.75rem;color:var(--muted);font-weight:500;}
+  .port-item .tag{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.9);font-size:0.65rem;font-weight:600;color:var(--verde);padding:3px 8px;border-radius:6px;}
+
+  /* SERVICIOS */
+  .srv-list{display:flex;flex-direction:column;gap:10px;}
+  .srv{background:#fff;border-radius:12px;padding:16px 18px;border:1px solid #e2eceb;display:flex;align-items:center;gap:14px;}
+  .srv .ico{width:42px;height:42px;border-radius:10px;background:#e6f7f5;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+  .srv h4{font-size:0.9rem;font-weight:600;margin-bottom:2px;}
+  .srv p{font-size:0.78rem;color:var(--muted);}
+
+  /* PROCESO */
+  .proceso{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .paso{background:#fff;border-radius:12px;padding:18px;border:1px solid #e2eceb;}
+  .paso .num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--verde2);line-height:1;}
+  .paso h4{font-size:0.88rem;font-weight:600;margin:6px 0 3px;}
+  .paso p{font-size:0.75rem;color:var(--muted);}
+
+  .web3-badge{background:var(--oscuro);border-radius:14px;padding:18px;text-align:center;margin:0 20px 28px;max-width:560px;margin-left:auto;margin-right:auto;}
+  .web3-badge strong{color:var(--verde2);font-size:0.85rem;}
+  .web3-badge p{color:rgba(255,255,255,0.4);font-size:0.75rem;margin-top:4px;}
+  footer{text-align:center;padding:20px;font-size:0.75rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="avatar">🏛️</div>
+  <h1>Arq. Diana Torres</h1>
+  <div class="esp">Arquitectura · Diseño Interior · Sustentable</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="num">12</div><div class="lbl">Años exp.</div></div>
+  <div class="stat"><div class="num">85+</div><div class="lbl">Proyectos</div></div>
+  <div class="stat"><div class="num">3</div><div class="lbl">Premios</div></div>
+</div>
+
+<div class="ctas">
+  <a class="cta-btn cta-wa" href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20un%20proyecto%20de%20arquitectura">💬 WhatsApp</a>
+  <a class="cta-btn cta-tel" href="tel:+521XXXXXXXXXX">📞 Llamar</a>
+  <a class="cta-btn cta-port" href="#">🎨 Portafolio</a>
+</div>
+
+<div class="section">
+  <h2>Proyectos Recientes</h2>
+  <div class="port-grid">
+    <div class="port-item"><div class="ico">🏠</div><div class="lbl">Casa Bosques</div><div class="tag">Residencial</div></div>
+    <div class="port-item"><div class="ico">🏢</div><div class="lbl">Oficinas TechHub</div><div class="tag">Comercial</div></div>
+    <div class="port-item"><div class="ico">🌿</div><div class="lbl">Villa Sustentable</div><div class="tag">Ecoarq.</div></div>
+    <div class="port-item"><div class="ico">🛋️</div><div class="lbl">Penthouse Roma</div><div class="tag">Diseño Int.</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Servicios</h2>
+  <div class="srv-list">
+    <div class="srv"><div class="ico">📐</div><div><h4>Proyecto Arquitectónico</h4><p>Diseño, planos, renders 3D y permisos de construcción</p></div></div>
+    <div class="srv"><div class="ico">🛋️</div><div><h4>Diseño de Interiores</h4><p>Concepto, mobiliario, materiales y supervisión</p></div></div>
+    <div class="srv"><div class="ico">🌱</div><div><h4>Arquitectura Sustentable</h4><p>Paneles solares, captación de agua y materiales eco</p></div></div>
+    <div class="srv"><div class="ico">🏗️</div><div><h4>Supervisión de Obra</h4><p>Control de calidad, tiempos y presupuesto</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Proceso de Trabajo</h2>
+  <div class="proceso">
+    <div class="paso"><div class="num">01</div><h4>Briefing</h4><p>Escuchamos tu visión y necesidades</p></div>
+    <div class="paso"><div class="num">02</div><h4>Concepto</h4><p>Bocetos y renders iniciales</p></div>
+    <div class="paso"><div class="num">03</div><h4>Proyecto</h4><p>Planos técnicos y especificaciones</p></div>
+    <div class="paso"><div class="num">04</div><h4>Construcción</h4><p>Ejecución y supervisión total</p></div>
+  </div>
+</div>
+
+<div class="web3-badge">
+  <strong>⬡ Portafolio en IPFS · Permanente y verificable</strong>
+  <p>Tus proyectos protegidos en la red descentralizada</p>
+</div>
+<footer>© 2025 Arq. Diana Torres · Estudio Torres Arquitectura</footer>
+</body>
+</html>

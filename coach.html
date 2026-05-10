@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ernesto Vargas — Business Coach</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--azul:#2563eb;--azul2:#3b82f6;--morado:#7c3aed;--bg:#f8f9ff;--oscuro:#0f172a;--muted:#64748b;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--oscuro);}
+
+  .header{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 60%,#312e81 100%);padding:56px 24px 48px;text-align:center;position:relative;overflow:hidden;}
+  .header::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.2),transparent 70%);}
+  .avatar{width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.1);border:2px solid rgba(59,130,246,0.5);margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;z-index:1;}
+  .header h1{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:4px;position:relative;z-index:1;}
+  .esp{color:#93c5fd;font-size:0.82rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;position:relative;z-index:1;}
+  .header-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+  .hbadge{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#e0e7ff;font-size:0.72rem;padding:4px 12px;border-radius:6px;}
+
+  .social-strip{display:flex;justify-content:center;gap:0;background:#fff;border-bottom:1px solid #e2e8f0;}
+  .soc{flex:1;padding:16px 8px;text-align:center;border-right:1px solid #e2e8f0;max-width:120px;}
+  .soc:last-child{border-right:none;}
+  .soc .num{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--oscuro);}
+  .soc .lbl{font-size:0.68rem;color:var(--muted);}
+
+  .ctas{display:flex;gap:10px;padding:20px;max-width:520px;margin:0 auto;flex-wrap:wrap;}
+  .cta-btn{display:flex;align-items:center;gap:8px;padding:14px 18px;border-radius:12px;font-family:'Manrope',sans-serif;font-size:0.88rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .2s;flex:1;min-width:110px;justify-content:center;}
+  .cta-wa{background:#22c55e;color:#fff;}
+  .cta-wa:hover{background:#16a34a;}
+  .cta-sesion{background:linear-gradient(135deg,var(--azul),var(--morado));color:#fff;}
+  .cta-sesion:hover{filter:brightness(1.1);transform:translateY(-1px);}
+  .cta-curso{background:#fff;color:var(--oscuro);border:1.5px solid #e2e8f0;}
+  .cta-curso:hover{border-color:var(--azul);}
+
+  .section{padding:24px 20px;max-width:600px;margin:0 auto;}
+  .section h2{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--oscuro);margin-bottom:16px;}
+
+  /* METODOLOGIA */
+  .metodo{display:flex;flex-direction:column;gap:0;}
+  .met-item{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid #f1f5f9;}
+  .met-item:last-child{border-bottom:none;}
+  .met-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+  .met-item h4{font-size:0.92rem;font-weight:700;margin-bottom:3px;}
+  .met-item p{font-size:0.8rem;color:var(--muted);}
+
+  /* PROGRAMAS */
+  .programas{display:flex;flex-direction:column;gap:12px;}
+  .prog{background:#fff;border-radius:16px;padding:20px 22px;border:1px solid #e2e8f0;position:relative;overflow:hidden;}
+  .prog.featured{border-color:var(--azul2);background:linear-gradient(135deg,#eff6ff,#f5f3ff);}
+  .prog .tag{position:absolute;top:0;right:0;background:linear-gradient(135deg,var(--azul),var(--morado));color:#fff;font-size:0.68rem;font-weight:700;padding:4px 12px;border-radius:0 0 0 10px;}
+  .prog h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:4px;}
+  .prog p{font-size:0.82rem;color:var(--muted);margin-bottom:12px;}
+  .prog .prog-footer{display:flex;justify-content:space-between;align-items:center;}
+  .prog .precio{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--oscuro);}
+  .prog .precio span{font-size:0.78rem;font-weight:400;color:var(--muted);}
+  .btn-inscribir{background:var(--azul);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:'Manrope',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all .2s;}
+  .btn-inscribir:hover{background:#1d4ed8;}
+  .prog.featured .btn-inscribir{background:linear-gradient(135deg,var(--azul),var(--morado));}
+
+  /* RESULTADOS */
+  .resultados{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .res{background:#fff;border-radius:12px;padding:18px;border:1px solid #e2e8f0;text-align:center;}
+  .res .ico{font-size:1.8rem;margin-bottom:6px;}
+  .res .num{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--azul);}
+  .res p{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+
+  .web3-badge{background:linear-gradient(135deg,#0f172a,#1e3a8a);border-radius:14px;padding:18px;text-align:center;margin:0 20px 28px;max-width:560px;margin-left:auto;margin-right:auto;}
+  .web3-badge strong{color:#93c5fd;font-size:0.85rem;}
+  .web3-badge p{color:rgba(255,255,255,0.4);font-size:0.75rem;margin-top:4px;}
+  footer{text-align:center;padding:20px;font-size:0.75rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="avatar">🎯</div>
+  <h1>Ernesto Vargas</h1>
+  <div class="esp">Business Coach · Speaker · Mentor</div>
+  <div class="header-badges">
+    <span class="hbadge">ICF Certified</span>
+    <span class="hbadge">Forbes 40under40</span>
+    <span class="hbadge">TEDx Speaker</span>
+    <span class="hbadge">12 Años de experiencia</span>
+  </div>
+</div>
+
+<div class="social-strip">
+  <div class="soc"><div class="num">200K</div><div class="lbl">Seguidores</div></div>
+  <div class="soc"><div class="num">1,500+</div><div class="lbl">Coachees</div></div>
+  <div class="soc"><div class="num">$50M+</div><div class="lbl">Generados</div></div>
+  <div class="soc"><div class="num">4.9★</div><div class="lbl">Rating</div></div>
+</div>
+
+<div class="ctas">
+  <a class="cta-btn cta-sesion" href="https://wa.me/521XXXXXXXXXX?text=Quiero%20una%20sesión%20de%20diagnóstico%20gratuita">🚀 Sesión Gratuita</a>
+  <a class="cta-btn cta-wa" href="https://wa.me/521XXXXXXXXXX">💬 WA</a>
+  <a class="cta-btn cta-curso" href="#">📚 Cursos</a>
+</div>
+
+<div class="section">
+  <h2>Metodología SCALE™</h2>
+  <div class="metodo">
+    <div class="met-item"><div class="met-icon" style="background:#eff6ff;">🔍</div><div><h4>S — Situación Actual</h4><p>Diagnóstico profundo de tu negocio y mente empresarial</p></div></div>
+    <div class="met-item"><div class="met-icon" style="background:#f5f3ff;">🎯</div><div><h4>C — Claridad de Visión</h4><p>Definimos el destino exacto donde quieres llegar</p></div></div>
+    <div class="met-item"><div class="met-icon" style="background:#eff6ff;">⚡</div><div><h4>A — Aceleración</h4><p>Sistemas y estrategias para crecer sin trabajar más</p></div></div>
+    <div class="met-item"><div class="met-icon" style="background:#f5f3ff;">🔗</div><div><h4>L — Liderazgo</h4><p>Construyes un equipo que opera sin ti</p></div></div>
+    <div class="met-item"><div class="met-icon" style="background:#eff6ff;">📈</div><div><h4>E — Escalabilidad</h4><p>Tu negocio crece aunque estés de vacaciones</p></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Programas</h2>
+  <div class="programas">
+    <div class="prog">
+      <h4>Sesión de Diagnóstico</h4>
+      <p>60 minutos para identificar el principal cuello de botella en tu negocio</p>
+      <div class="prog-footer"><div class="precio">Gratis</div><button class="btn-inscribir" onclick="inscribir('Sesión de Diagnóstico Gratuita')">Agendar →</button></div>
+    </div>
+    <div class="prog featured">
+      <div class="tag">MÁS POPULAR</div>
+      <h4>Programa SCALE™ 3 Meses</h4>
+      <p>Coaching semanal + acceso a comunidad privada + recursos exclusivos</p>
+      <div class="prog-footer"><div class="precio">$15,000 <span>/ mes</span></div><button class="btn-inscribir" onclick="inscribir('Programa SCALE 3 meses $15,000/mes')">Inscribirse →</button></div>
+    </div>
+    <div class="prog">
+      <h4>Masterclass Grupal</h4>
+      <p>Taller intensivo de 2 días para empresarios en grupos de 20 personas</p>
+      <div class="prog-footer"><div class="precio">$4,500</div><button class="btn-inscribir" onclick="inscribir('Masterclass Grupal $4,500')">Reservar →</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Resultados de Mis Clientes</h2>
+  <div class="resultados">
+    <div class="res"><div class="ico">💰</div><div class="num">3X</div><p>Promedio de incremento en ingresos en 6 meses</p></div>
+    <div class="res"><div class="ico">⏰</div><div class="num">-40%</div><p>Reducción de horas trabajadas por el dueño</p></div>
+    <div class="res"><div class="ico">👥</div><div class="num">+80%</div><p>Mejora en productividad del equipo</p></div>
+    <div class="res"><div class="ico">🌎</div><div class="num">15+</div><p>Países donde han escalado negocios</p></div>
+  </div>
+</div>
+
+<div class="web3-badge">
+  <strong>⬡ Tu inversión en IPFS · Contrato verificable</strong>
+  <p>Programas con respaldo en la red descentralizada</p>
+</div>
+<footer>© 2025 Ernesto Vargas · Business Coach · @ernesto.vargas</footer>
+
+<script>
+function inscribir(programa) {
+  const msg = encodeURIComponent(`Hola Ernesto! Me interesa: ${programa}\n\n¿Cuándo podemos hablar?`);
+  window.open(`https://wa.me/521XXXXXXXXXX?text=${msg}`, '_blank');
+}
+</script>
+</body>
+</html>

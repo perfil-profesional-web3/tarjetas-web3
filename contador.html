@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C.P. Roberto Fuentes — Contador Público Certificado</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--verde:#16a34a;--verde2:#22c55e;--bg:#f0fdf4;--oscuro:#052e16;--muted:#4b7a5e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--oscuro);}
+
+  .header{background:linear-gradient(135deg,#052e16,#14532d);padding:48px 24px 40px;text-align:center;}
+  .avatar{width:96px;height:96px;border-radius:50%;background:#14532d;border:3px solid var(--verde2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;}
+  .header h1{font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:4px;letter-spacing:-0.3px;}
+  .esp{color:var(--verde2);font-size:0.82rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+  .cert-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+  .cert{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--verde2);font-size:0.72rem;font-weight:600;padding:4px 12px;border-radius:6px;}
+
+  .ctas{display:flex;gap:10px;padding:20px;max-width:520px;margin:0 auto;flex-wrap:wrap;}
+  .cta-btn{display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:10px;font-family:'IBM Plex Sans',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .2s;flex:1;min-width:120px;justify-content:center;}
+  .cta-wa{background:#22c55e;color:#fff;}
+  .cta-wa:hover{background:#16a34a;}
+  .cta-tel{background:var(--oscuro);color:var(--verde2);}
+  .cta-cita{background:#fff;color:var(--oscuro);border:1.5px solid #bbf7d0;}
+  .cta-cita:hover{border-color:var(--verde);}
+
+  .section{padding:24px 20px;max-width:580px;margin:0 auto;}
+  .section h2{font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .section h2::after{content:'';flex:1;height:1px;background:#bbf7d0;}
+
+  /* SERVICIOS */
+  .srv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .srv{background:#fff;border-radius:12px;padding:18px;border:1px solid #bbf7d0;}
+  .srv .ico{font-size:1.6rem;margin-bottom:8px;}
+  .srv h4{font-size:0.88rem;font-weight:600;margin-bottom:4px;}
+  .srv p{font-size:0.75rem;color:var(--muted);line-height:1.4;}
+  .srv .precio{font-size:0.8rem;font-weight:700;color:var(--verde);margin-top:8px;}
+
+  /* CALCULADORA ISR */
+  .calc{background:#fff;border-radius:14px;padding:22px;border:1px solid #bbf7d0;}
+  .calc h3{font-size:0.92rem;font-weight:600;margin-bottom:14px;color:var(--oscuro);}
+  .calc input{width:100%;padding:11px 14px;border-radius:8px;border:1.5px solid #bbf7d0;font-family:'IBM Plex Sans',sans-serif;font-size:0.9rem;color:var(--oscuro);outline:none;margin-bottom:10px;background:var(--bg);}
+  .calc input:focus{border-color:var(--verde);}
+  .calc button{width:100%;padding:12px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-family:'IBM Plex Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all .2s;}
+  .calc button:hover{background:#14532d;}
+  .calc-result{margin-top:14px;padding:14px;background:var(--bg);border-radius:10px;display:none;}
+  .calc-result .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #dcfce7;font-size:0.85rem;}
+  .calc-result .row:last-child{border-bottom:none;font-weight:700;color:var(--verde);}
+
+  /* FECHAS FISCALES */
+  .fechas{display:flex;flex-direction:column;gap:8px;}
+  .fecha{background:#fff;border-radius:10px;padding:14px 18px;border:1px solid #bbf7d0;display:flex;justify-content:space-between;align-items:center;}
+  .fecha .nombre{font-size:0.88rem;font-weight:500;}
+  .fecha .fdate{font-size:0.82rem;font-weight:700;color:var(--verde);}
+  .fecha .badge{font-size:0.7rem;padding:3px 8px;border-radius:6px;}
+  .badge-prox{background:#fef3c7;color:#92400e;}
+  .badge-ok{background:#dcfce7;color:#14532d;}
+
+  .web3-badge{background:linear-gradient(135deg,#052e16,#14532d);border-radius:14px;padding:18px;text-align:center;margin:0 20px 28px;max-width:540px;margin-left:auto;margin-right:auto;}
+  .web3-badge strong{color:var(--verde2);font-size:0.85rem;}
+  .web3-badge p{color:rgba(255,255,255,0.45);font-size:0.75rem;margin-top:4px;}
+  footer{text-align:center;padding:20px;font-size:0.75rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="avatar">📊</div>
+  <h1>C.P. Roberto Fuentes</h1>
+  <div class="esp">Contador Público Certificado · IMCP</div>
+  <div class="cert-badges">
+    <span class="cert">IMCP</span>
+    <span class="cert">SAT Certificado</span>
+    <span class="cert">IMSS</span>
+    <span class="cert">INFONAVIT</span>
+  </div>
+</div>
+
+<div class="ctas">
+  <a class="cta-btn cta-wa" href="https://wa.me/521XXXXXXXXXX?text=Hola,%20requiero%20servicios%20contables">💬 WhatsApp</a>
+  <a class="cta-btn cta-tel" href="tel:+521XXXXXXXXXX">📞 Llamar</a>
+  <a class="cta-btn cta-cita" href="https://wa.me/521XXXXXXXXXX?text=Quiero%20agendar%20una%20cita">📅 Agendar Cita</a>
+</div>
+
+<div class="section">
+  <h2>Servicios</h2>
+  <div class="srv-grid">
+    <div class="srv"><div class="ico">🧾</div><h4>Contabilidad Mensual</h4><p>Estados financieros, balances y reportes ejecutivos</p><div class="precio">Desde $2,500/mes</div></div>
+    <div class="srv"><div class="ico">📋</div><h4>Declaraciones SAT</h4><p>Anuales, provisionales y complementarias</p><div class="precio">Desde $800</div></div>
+    <div class="srv"><div class="ico">👥</div><h4>Nómina IMSS</h4><p>Cálculo, timbrado y dispersión de salarios</p><div class="precio">Desde $1,200/mes</div></div>
+    <div class="srv"><div class="ico">🏢</div><h4>Constitución de Empresa</h4><p>SA de CV, SAS, SAPI ante SAT y Notario</p><div class="precio">Desde $4,500</div></div>
+    <div class="srv"><div class="ico">🔍</div><h4>Auditoría Fiscal</h4><p>Revisión y defensa ante autoridades fiscales</p><div class="precio">Cotización</div></div>
+    <div class="srv"><div class="ico">💰</div><h4>Planeación Fiscal</h4><p>Estrategias legales para reducir impuestos</p><div class="precio">Desde $3,000</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Calculadora ISR Rápida</h2>
+  <div class="calc">
+    <h3>💡 Estima tu ISR mensual (Persona Física)</h3>
+    <input type="number" id="ingreso" placeholder="Ingreso mensual bruto ($)" min="0"/>
+    <button onclick="calcularISR()">Calcular Impuesto</button>
+    <div class="calc-result" id="calcResult">
+      <div class="row"><span>Ingreso bruto</span><span id="rIngreso">-</span></div>
+      <div class="row"><span>ISR estimado (aprox.)</span><span id="rISR">-</span></div>
+      <div class="row"><span>IVA a pagar</span><span id="rIVA">-</span></div>
+      <div class="row"><span>Neto estimado</span><span id="rNeto">-</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Fechas Fiscales 2025</h2>
+  <div class="fechas">
+    <div class="fecha"><span class="nombre">Declaración Anual PF</span><span class="fdate">30 Abr 2025</span><span class="badge badge-ok">Completado</span></div>
+    <div class="fecha"><span class="nombre">Pago Provisional ISR</span><span class="fdate">17 Jun 2025</span><span class="badge badge-prox">Próximo</span></div>
+    <div class="fecha"><span class="nombre">Declaración Anual PM</span><span class="fdate">31 Mar 2025</span><span class="badge badge-ok">Completado</span></div>
+    <div class="fecha"><span class="nombre">PTU Trabajadores</span><span class="fdate">30 May 2025</span><span class="badge badge-prox">Próximo</span></div>
+  </div>
+</div>
+
+<div class="web3-badge">
+  <strong>⬡ Documentos fiscales en IPFS · Inmutables</strong>
+  <p>Tus estados financieros guardados de forma permanente y verificable</p>
+</div>
+<footer>© 2025 C.P. Roberto Fuentes · IMCP · RFC: FURX800101XXX</footer>
+
+<script>
+function calcularISR() {
+  const ing = parseFloat(document.getElementById('ingreso').value);
+  if (!ing || ing <= 0) { alert('Ingresa un monto válido'); return; }
+  // Estimación simplificada ISR México 2025
+  let isr = 0;
+  if (ing <= 7735) isr = ing * 0.0192;
+  else if (ing <= 65651) isr = 148.51 + (ing - 7735) * 0.064;
+  else if (ing <= 115375) isr = 3855.14 + (ing - 65651) * 0.1088;
+  else if (ing <= 134119) isr = 9265.20 + (ing - 115375) * 0.16;
+  else if (ing <= 160577) isr = 12264.16 + (ing - 134119) * 0.1792;
+  else isr = 17005.47 + (ing - 160577) * 0.2136;
+  const iva = ing * 0.16;
+  const neto = ing - isr - iva;
+  document.getElementById('rIngreso').textContent = '$' + ing.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('rISR').textContent = '$' + isr.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('rIVA').textContent = '$' + iva.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('rNeto').textContent = '$' + neto.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('calcResult').style.display = 'block';
+}
+</script>
+</body>
+</html>

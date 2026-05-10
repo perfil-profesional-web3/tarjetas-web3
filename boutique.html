@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique Lumière — Moda & Accesorios</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--oro:#d97706;--oro2:#f59e0b;--bg:#fffdf7;--oscuro:#1c1206;--muted:#8a6a3a;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Josefin Sans',sans-serif;background:var(--bg);color:var(--oscuro);}
+
+  .header{background:#1c1206;padding:48px 24px 36px;text-align:center;}
+  .logo-circle{width:80px;height:80px;border-radius:50%;border:2px solid var(--oro2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;}
+  .header h1{font-family:'EB Garamond',serif;font-size:2rem;font-style:italic;color:#fff;letter-spacing:1px;margin-bottom:4px;}
+  .header .tagline{color:var(--oro2);font-size:0.72rem;letter-spacing:4px;text-transform:uppercase;}
+
+  .banner{background:linear-gradient(135deg,var(--oro),var(--oro2));padding:12px 20px;text-align:center;font-size:0.82rem;font-weight:600;color:#1c1206;letter-spacing:1px;}
+
+  .ctas{display:flex;gap:10px;padding:20px;max-width:520px;margin:0 auto;flex-wrap:wrap;}
+  .cta-btn{display:flex;align-items:center;gap:8px;padding:13px 18px;border-radius:0;font-family:'Josefin Sans',sans-serif;font-size:0.82rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .2s;flex:1;min-width:110px;justify-content:center;letter-spacing:1px;text-transform:uppercase;}
+  .cta-wa{background:#22c55e;color:#fff;}
+  .cta-pedido{background:var(--oscuro);color:var(--oro2);}
+  .cta-pedido:hover{background:#2d1f0a;}
+  .cta-ig{background:#fff;color:var(--oscuro);border:1.5px solid #ead5b8;}
+  .cta-ig:hover{border-color:var(--oro);}
+
+  .section{padding:24px 20px;max-width:600px;margin:0 auto;}
+  .section-title{font-family:'EB Garamond',serif;font-size:1.4rem;font-style:italic;color:var(--oscuro);text-align:center;margin-bottom:6px;}
+  .sep{width:40px;height:1px;background:var(--oro);margin:0 auto 20px;}
+
+  /* PRODUCT GRID */
+  .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .prod{background:#fff;border-radius:0;border:1px solid #ead5b8;overflow:hidden;}
+  .prod-img{height:150px;background:linear-gradient(135deg,#fef3c7,#fffbeb);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;}
+  .prod-badge{position:absolute;top:8px;left:8px;background:var(--oscuro);color:var(--oro2);font-size:0.65rem;font-weight:700;padding:3px 8px;letter-spacing:1px;}
+  .prod-info{padding:12px 14px;}
+  .prod-info h4{font-size:0.88rem;font-weight:600;margin-bottom:4px;}
+  .prod-info p{font-size:0.75rem;color:var(--muted);}
+  .prod-footer{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-top:1px solid #fef3c7;}
+  .prod-precio{font-family:'EB Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--oscuro);}
+  .prod-btn{background:var(--oscuro);color:var(--oro2);font-size:0.72rem;font-weight:700;padding:7px 12px;border:none;cursor:pointer;font-family:'Josefin Sans',sans-serif;letter-spacing:1px;transition:all .2s;}
+  .prod-btn:hover{background:#2d1f0a;}
+
+  /* CATEGORIAS */
+  .cats{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;}
+  .cat{padding:8px 18px;border:1.5px solid #ead5b8;font-size:0.78rem;font-weight:600;cursor:pointer;background:transparent;color:var(--muted);font-family:'Josefin Sans',sans-serif;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;transition:all .2s;}
+  .cat.active{background:var(--oscuro);color:var(--oro2);border-color:var(--oscuro);}
+
+  /* BENEFICIOS */
+  .benef{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .ben{text-align:center;padding:16px 8px;}
+  .ben .ico{font-size:1.6rem;margin-bottom:8px;}
+  .ben h4{font-size:0.78rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px;}
+  .ben p{font-size:0.72rem;color:var(--muted);}
+
+  .web3-badge{background:#1c1206;border-top:1px solid #3d2b0a;padding:18px;text-align:center;}
+  .web3-badge strong{color:var(--oro2);font-size:0.85rem;}
+  .web3-badge p{color:rgba(255,255,255,0.4);font-size:0.75rem;margin-top:4px;}
+  footer{background:#1c1206;text-align:center;padding:16px;font-size:0.72rem;color:rgba(255,255,255,0.3);letter-spacing:1px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-circle">👗</div>
+  <h1>Boutique Lumière</h1>
+  <div class="tagline">Moda · Accesorios · Lifestyle</div>
+</div>
+
+<div class="banner">✨ ENVÍO GRATIS EN PEDIDOS MAYORES A $800 · PAGO SEGURO POR WHATSAPP</div>
+
+<div class="ctas">
+  <a class="cta-btn cta-wa" href="https://wa.me/521XXXXXXXXXX?text=Hola,%20vi%20su%20catálogo%20y%20quiero%20pedir">💬 Hacer Pedido</a>
+  <a class="cta-btn cta-pedido" href="https://wa.me/521XXXXXXXXXX?text=¿Cuál%20es%20su%20catálogo%20completo?">📦 Catálogo</a>
+  <a class="cta-btn cta-ig" href="#">📸 Instagram</a>
+</div>
+
+<div class="section">
+  <div class="section-title">Colección Destacada</div>
+  <div class="sep"></div>
+  <div class="cats">
+    <button class="cat active">Todos</button>
+    <button class="cat">Ropa</button>
+    <button class="cat">Bolsas</button>
+    <button class="cat">Joyería</button>
+    <button class="cat">Calzado</button>
+  </div>
+  <div class="prod-grid">
+    <div class="prod">
+      <div class="prod-img">👗<span class="prod-badge">NUEVO</span></div>
+      <div class="prod-info"><h4>Vestido Lino Midi</h4><p>Tallas S, M, L · Varios colores</p></div>
+      <div class="prod-footer"><span class="prod-precio">$890</span><button class="prod-btn" onclick="pedirProducto('Vestido Lino Midi $890')">PEDIR</button></div>
+    </div>
+    <div class="prod">
+      <div class="prod-img">👜<span class="prod-badge">TOP</span></div>
+      <div class="prod-info"><h4>Bolsa Piel Italiana</h4><p>Negro, camel · Hecho a mano</p></div>
+      <div class="prod-footer"><span class="prod-precio">$2,400</span><button class="prod-btn" onclick="pedirProducto('Bolsa Piel Italiana $2,400')">PEDIR</button></div>
+    </div>
+    <div class="prod">
+      <div class="prod-img">💍</div>
+      <div class="prod-info"><h4>Aretes Perla Natural</h4><p>Plata .925 · Perla cultivada</p></div>
+      <div class="prod-footer"><span class="prod-precio">$650</span><button class="prod-btn" onclick="pedirProducto('Aretes Perla Natural $650')">PEDIR</button></div>
+    </div>
+    <div class="prod">
+      <div class="prod-img">👠<span class="prod-badge">OFERTA</span></div>
+      <div class="prod-info"><h4>Mules Cuero Nude</h4><p>Del 23 al 26 · Plantilla confort</p></div>
+      <div class="prod-footer"><span class="prod-precio">$1,100</span><button class="prod-btn" onclick="pedirProducto('Mules Cuero Nude $1,100')">PEDIR</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">¿Por Qué Elegirnos?</div>
+  <div class="sep"></div>
+  <div class="benef">
+    <div class="ben"><div class="ico">🚚</div><h4>Envío Express</h4><p>24-48h CDMX · 3-5 días interior</p></div>
+    <div class="ben"><div class="ico">💳</div><h4>Pago Fácil</h4><p>Transferencia, tarjeta y efectivo</p></div>
+    <div class="ben"><div class="ico">🔄</div><h4>Cambios</h4><p>15 días para cambio o devolución</p></div>
+  </div>
+</div>
+
+<div class="web3-badge">
+  <strong>⬡ Catálogo en IPFS · Precios siempre actuales</strong>
+  <p>Tu compra protegida en la red descentralizada</p>
+</div>
+<footer>© 2025 BOUTIQUE LUMIÈRE · CDMX · TODOS LOS DERECHOS RESERVADOS</footer>
+
+<script>
+function pedirProducto(producto) {
+  const msg = encodeURIComponent(`Hola! Me interesa:\n\n${producto}\n\n¿Está disponible?`);
+  window.open(`https://wa.me/521XXXXXXXXXX?text=${msg}`, '_blank');
+}
+</script>
+</body>
+</html>
