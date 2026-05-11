@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Planes y Servicios · Perfiles Web3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #050a15;
+      --bg2:       #070d1c;
+      --surface:   #0a1120;
+      --neon:      #38bdf8;
+      --neon2:     #06b6d4;
+      --neon3:     #7dd3fc;
+      --accent:    #f0f9ff;
+      --muted:     #4a6080;
+      --gold:      #fbbf24;
+      --green:     #34d399;
+      --purple:    #a78bfa;
+      --font-hd:   'Orbitron', monospace;
+      --font-mono: 'Share Tech Mono', monospace;
+      --font-body: 'Rajdhani', sans-serif;
+      --glow:      0 0 8px #38bdf8, 0 0 22px #38bdf860, 0 0 45px #38bdf820;
+      --glow-sm:   0 0 4px #38bdf8, 0 0 12px #38bdf850;
+      --glow-gold: 0 0 6px #fbbf24, 0 0 16px #fbbf2450;
+      --card-glow: 0 0 0 1px #38bdf828, 0 0 20px #38bdf80e, 0 0 60px #38bdf806;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--accent);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* dot-grid bg */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(56,189,248,.09) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none; z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 90% 50% at 50% 0%, #38bdf80c 0%, transparent 65%),
+        radial-gradient(ellipse 100% 40% at 50% 100%, #050a1590 0%, transparent 80%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Keyframes ── */
+    @keyframes flicker {
+      0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:.87} 94%{opacity:1} 96%{opacity:.93} 97%{opacity:1}
+    }
+    @keyframes pulse-border {
+      0%,100%{ box-shadow: var(--card-glow); }
+      50%    { box-shadow: 0 0 0 1px #38bdf855, 0 0 28px #38bdf822, 0 0 70px #38bdf810; }
+    }
+    @keyframes badge-glow {
+      0%,100%{ text-shadow: var(--glow-gold); }
+      50%    { text-shadow: 0 0 10px var(--gold), 0 0 28px var(--gold); }
+    }
+    @keyframes slide-up {
+      from{ opacity:0; transform:translateY(26px); }
+      to  { opacity:1; transform:translateY(0); }
+    }
+    @keyframes title-glow {
+      0%,100%{ text-shadow: 0 0 12px #38bdf8, 0 0 35px #38bdf870, 0 0 70px #38bdf838; }
+      50%    { text-shadow: 0 0 22px #38bdf8, 0 0 55px #38bdf890, 0 0 100px #38bdf850; }
+    }
+    @keyframes green-pulse {
+      0%,100%{ box-shadow: 0 0 0 1px #34d39930, 0 0 20px #34d39910; }
+      50%    { box-shadow: 0 0 0 1px #34d39960, 0 0 35px #34d39928; }
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative; z-index: 1;
+      max-width: 1420px; margin: 0 auto;
+      padding: 72px 24px 64px;
+      animation: flicker 9s infinite;
+    }
+
+    /* ────────────────────────────────────
+       HEADER
+    ──────────────────────────────────── */
+    .page-header { text-align: center; margin-bottom: 72px; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: .72rem; letter-spacing: .38em;
+      color: var(--neon); text-transform: uppercase; margin-bottom: 14px; opacity: .8;
+    }
+    .page-header h1 {
+      font-family: var(--font-hd); font-size: clamp(1.75rem,5vw,3.2rem);
+      font-weight: 900; text-transform: uppercase; letter-spacing: .06em; color: #fff;
+      animation: title-glow 3.5s ease-in-out infinite; line-height: 1.12;
+    }
+    .page-header h1 em { font-style: normal; color: var(--neon); }
+    .page-header .sub {
+      font-family: var(--font-body); font-size: 1rem; color: var(--muted);
+      margin-top: 12px; letter-spacing: .04em;
+    }
+    .divider { display: flex; align-items: center; gap: 10px; margin: 24px auto 0; width: fit-content; }
+    .dl { width: 70px; height: 1px; background: linear-gradient(90deg,transparent,var(--neon)); }
+    .dr { width: 70px; height: 1px; background: linear-gradient(90deg,var(--neon),transparent); }
+    .dd { width: 7px; height: 7px; background: var(--neon); transform: rotate(45deg); box-shadow: var(--glow-sm); }
+
+    /* ── Section title ── */
+    .sec-label {
+      font-family: var(--font-mono); font-size: .66rem; letter-spacing: .22em;
+      color: var(--neon); text-transform: uppercase; margin-bottom: 8px; opacity: .65;
+    }
+    .sec-title {
+      font-family: var(--font-hd); font-size: clamp(.82rem,2vw,1.05rem); font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: #fff;
+      display: flex; align-items: center; gap: 14px; margin-bottom: 30px;
+    }
+    .sec-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg,#38bdf840,transparent);
+    }
+
+    /* ────────────────────────────────────
+       SECCIÓN 1 · PLAN CARDS
+    ──────────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+      gap: 22px; margin-bottom: 80px;
+    }
+    .card {
+      position: relative;
+      background: linear-gradient(155deg,#0a1120 0%,#070d1b 100%);
+      border: 1px solid #38bdf828; border-radius: 10px;
+      padding: 26px 22px 22px; overflow: hidden; cursor: default;
+      animation: pulse-border 4.5s ease-in-out infinite, slide-up .55s ease both;
+      transition: transform .3s ease, border-color .3s;
+    }
+    .card:hover { transform: translateY(-7px) scale(1.015); border-color: var(--neon); box-shadow: var(--glow),inset 0 0 28px #38bdf806; }
+
+    .card::before,.card::after {
+      content: ''; position: absolute; width: 14px; height: 14px;
+      border-color: var(--neon); border-style: solid; opacity: .6;
+      transition: opacity .3s;
+    }
+    .card::before { top: 7px; left: 7px; border-width: 2px 0 0 2px; }
+    .card::after  { bottom: 7px; right: 7px; border-width: 0 2px 2px 0; }
+    .card:hover::before,.card:hover::after { opacity: 1; }
+
+    .card .ts {
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg,transparent,var(--neon) 50%,transparent);
+      opacity: .5;
+    }
+
+    .card:nth-child(1){animation-delay:.04s} .card:nth-child(2){animation-delay:.09s}
+    .card:nth-child(3){animation-delay:.14s} .card:nth-child(4){animation-delay:.19s}
+    .card:nth-child(5){animation-delay:.24s} .card:nth-child(6){animation-delay:.29s}
+    .card:nth-child(7){animation-delay:.34s}
+
+    .cbadge {
+      position: absolute; top: 12px; right: 12px;
+      font-family: var(--font-mono); font-size: .57rem; letter-spacing: .13em;
+      text-transform: uppercase; padding: 3px 7px; border-radius: 3px; border: 1px solid currentColor;
+    }
+    .b-std  { color: var(--neon3); border-color: #7dd3fc35; background: #7dd3fc0a; }
+    .b-web3 { color: var(--purple); border-color: #a78bfa35; background: #a78bfa0a; }
+    .b-pro  { color: var(--gold); border-color: #fbbf2435; background: #fbbf240a; animation: badge-glow 2.2s infinite; }
+    .b-ent  { color: var(--green); border-color: #34d39935; background: #34d3990a; }
+
+    .plan-num  { font-family: var(--font-mono); font-size: .62rem; color: var(--muted); letter-spacing: .2em; margin-bottom: 5px; }
+    .plan-name { font-family: var(--font-hd); font-size: .9rem; font-weight: 700; color: #fff; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 3px; padding-right: 56px; line-height: 1.3; }
+    .plan-sub  { font-family: var(--font-mono); font-size: .61rem; color: var(--muted); letter-spacing: .07em; margin-bottom: 15px; }
+
+    .bk { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+    .bk-row { display: flex; align-items: flex-start; gap: 8px; font-family: var(--font-mono); font-size: .71rem; line-height: 1.45; }
+    .bk-lbl { color: var(--muted); min-width: 90px; flex-shrink: 0; }
+    .bk-val { color: #b0cad8; flex: 1; }
+    .bk-val .op { color: #3a556a; margin: 0 3px; }
+    .bk-val .var { color: #fbbf2485; font-size: .59rem; letter-spacing: .05em; }
+
+    .card-foot {
+      border-top: 1px solid #38bdf815; padding-top: 14px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .ft-blk { display: flex; flex-direction: column; gap: 2px; }
+    .ft-lbl { font-family: var(--font-mono); font-size: .57rem; color: var(--muted); letter-spacing: .13em; text-transform: uppercase; }
+    .ft-amt { font-family: var(--font-hd); font-size: 1.1rem; font-weight: 700; color: var(--neon); text-shadow: var(--glow-sm); }
+    .ft-amt.renta { color: var(--green); text-shadow: 0 0 6px var(--green),0 0 16px #34d39945; }
+
+
+    /* ── Card Extra Block ── */
+    .card-extra {
+      margin-top: 14px;
+      border-top: 1px dashed #38bdf818;
+      padding-top: 12px;
+    }
+    .card-extra-title {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: .6rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .detalles-a {
+       font-family: var(--font-hd); font-size: .6rem; font-weight: 700; color: rgb(221, 119, 146); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 3px; padding-right: 56px; line-height: 1.3;   
+
+    }
+
+    .detalles-b {
+       font-family: var(--font-hd); font-size: .6rem; font-weight: 700; color: rgb(57, 226, 94); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 3px; padding-right: 56px; line-height: 1.3;   
+
+    }
+    .detalles-c {
+       font-family: var(--font-hd); font-size: .5rem; font-weight: 700; color: #fff ; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 3px; padding-right: 56px; line-height: 1.3;   
+
+    }
+
+    /* Control Total */
+    .card.card-ent {
+      grid-column: 1/-1;
+      background: linear-gradient(135deg,#060f0c 0%,#050e17 55%,#060f0c 100%);
+      border-color: #34d39928;
+      animation: green-pulse 4s ease-in-out infinite, slide-up .55s ease .34s both;
+    }
+    .card.card-ent::before,.card.card-ent::after { border-color: var(--green); }
+    .card.card-ent .ts { background: linear-gradient(90deg,transparent,var(--green) 50%,transparent); }
+    .card.card-ent:hover { border-color: var(--green); box-shadow: 0 0 0 1px #34d39960,0 0 30px #34d39928,0 0 65px #34d39912; }
+    .ent-inner { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+    .ent-icon { font-size: 2.2rem; flex-shrink: 0; filter: drop-shadow(0 0 10px var(--green)); }
+    .ent-body { flex: 1; min-width: 200px; }
+    .ent-body .plan-name { color: var(--green) !important; padding-right: 0; }
+    .ent-body p.desc { font-family: var(--font-body); font-size: .93rem; color: #6aa89e; line-height: 1.65; margin-top: 5px; }
+    .ent-body p.desc strong { color: #c8ede4; }
+    .ent-cta {
+      display: inline-block; margin-top: 12px;
+      font-family: var(--font-mono); font-size: .68rem; letter-spacing: .13em; text-transform: uppercase;
+      color: var(--green); border: 1px solid #34d39945; padding: 6px 15px; border-radius: 4px;
+      background: #34d3990c; cursor: pointer; transition: background .2s,box-shadow .2s;
+    }
+    .ent-cta:hover { background: #34d39918; box-shadow: 0 0 12px #34d39948; }
+    .ent-price { display: flex; flex-direction: column; gap: 2px; align-items: flex-end; flex-shrink: 0; }
+
+    /* ────────────────────────────────────
+       SECCIÓN 2 · SERVICIOS INDIVIDUALES
+    ──────────────────────────────────── */
+    .services-section { margin-bottom: 80px; animation: slide-up .55s ease .42s both; }
+    .services-cols { display: grid; grid-template-columns: repeat(auto-fit,minmax(265px,1fr)); gap: 18px; }
+
+    .svc-col {
+      background: linear-gradient(170deg,#09101e 0%,#06090f 100%);
+      border: 1px solid #38bdf81e; border-radius: 10px; padding: 20px 18px;
+      position: relative; overflow: hidden;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .svc-col:hover { border-color: #38bdf840; box-shadow: 0 0 0 1px #38bdf815,0 0 18px #38bdf80c; }
+    .svc-col::before,.svc-col::after {
+      content: ''; position: absolute; width: 10px; height: 10px;
+      border-color: #38bdf845; border-style: solid;
+    }
+    .svc-col::before { top: 6px; left: 6px; border-width: 1.5px 0 0 1.5px; }
+    .svc-col::after  { bottom: 6px; right: 6px; border-width: 0 1.5px 1.5px 0; }
+
+    .svc-col-head {
+      font-family: var(--font-mono); font-size: .63rem; letter-spacing: .17em;
+      color: var(--neon); text-transform: uppercase; margin-bottom: 15px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .svc-col-head::after { content: ''; flex: 1; height: 1px; background: #38bdf828; }
+
+    .svc-item {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 7px 0; border-bottom: 1px solid #38bdf80c; gap: 10px;
+      font-family: var(--font-mono); font-size: .71rem;
+    }
+    .svc-item:last-child { border-bottom: none; }
+    .svc-name { color: #7a9ab0; flex: 1; line-height: 1.4; }
+    .svc-price { color: var(--neon); font-weight: 700; text-shadow: var(--glow-sm); white-space: nowrap; }
+    .svc-price.gold  { color: var(--gold); text-shadow: var(--glow-gold); }
+    .svc-price.green { color: var(--green); text-shadow: 0 0 6px var(--green),0 0 14px #34d39940; }
+
+    /* ────────────────────────────────────
+       INFRA TABLE
+    ──────────────────────────────────── */
+    .infra-section { margin-bottom: 72px; animation: slide-up .55s ease .48s both; }
+    .tbl-wrap { overflow-x: auto; border: 1px solid #38bdf818; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: .73rem; }
+    thead tr { border-bottom: 1px solid #38bdf835; }
+    thead th {
+      text-align: left; padding: 10px 14px;
+      color: var(--neon); letter-spacing: .1em; text-transform: uppercase;
+      font-size: .61rem; font-weight: 400; background: #38bdf808;
+    }
+    tbody tr { border-bottom: 1px solid #38bdf80c; transition: background .18s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #38bdf806; }
+    tbody td { padding: 9px 14px; color: #7090a0; }
+    tbody td:first-child { color: #c8dce6; }
+    tbody td:last-child { color: var(--neon); font-weight: 700; text-align: right; text-shadow: var(--glow-sm); }
+
+    /* ────────────────────────────────────
+       SECCIÓN 3 · LEYENDAS
+    ──────────────────────────────────── */
+    .legends-section { margin-bottom: 44px; display: flex; flex-direction: column; gap: 14px; animation: slide-up .55s ease .54s both; }
+    .legend-card {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: linear-gradient(135deg,#07101c,#050810);
+      border: 1px solid #38bdf81a; border-radius: 8px; padding: 18px 22px;
+      position: relative; overflow: hidden;
+      transition: border-color .3s;
+    }
+    .legend-card:hover { border-color: #38bdf838; }
+    .legend-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg,transparent,#38bdf840 40%,#38bdf840 60%,transparent);
+    }
+    .legend-icon { font-size: 1.45rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+    .legend-text { flex: 1; }
+    .legend-head { font-family: var(--font-hd); font-size: .7rem; font-weight: 700; color: var(--neon); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+    .legend-body { font-family: var(--font-body); font-size: .92rem; color: #5f7f8e; line-height: 1.65; }
+    .legend-body em { font-style: normal; color: #8bb8ca; }
+
+    /* ── Footer ── */
+    .page-foot {
+      text-align: center; padding: 20px 16px;
+      border: 1px solid #38bdf812; border-radius: 8px;
+      background: #38bdf803; position: relative; overflow: hidden;
+      animation: slide-up .55s ease .6s both;
+    }
+    .page-foot::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg,transparent,var(--neon) 30%,var(--neon2) 70%,transparent);
+      opacity: .32;
+    }
+    .foot-icons { display: flex; justify-content: center; gap: 18px; margin-bottom: 10px; font-size: 1.05rem; }
+    .page-foot p { font-family: var(--font-mono); font-size: .66rem; color: var(--muted); letter-spacing: .08em; line-height: 1.9; }
+    .page-foot span { color: var(--neon); }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: #38bdf835; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--neon); }
+
+    @media(max-width:640px){
+      .page { padding: 48px 14px 40px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .ent-inner { flex-direction: column; gap: 14px; }
+      .ent-price { align-items: flex-start; }
+      .services-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════════
+       HEADER
+  ══════════════════════════════════ -->
+  <header class="page-header">
+    <p class="eyebrow">// Perfiles Web3 · Infraestructura Descentralizada</p>
+    <h1>Planes y <em>Servicios</em><br>Perfiles‑Web3</h1>
+    <p class="sub">Arquitectura descentralizada · IPFS · Git · Dominios .poly &amp; .eth · Precios en MXN</p>
+    <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dr"></div></div>
+  </header>
+
+  <!-- ══════════════════════════════════
+       SECCIÓN 1 · LOS 7 PAQUETES
+  ══════════════════════════════════ -->
+  <p class="sec-label">// sección 01</p>
+  <h2 class="sec-title">⬡ Los 7 Paquetes Disponibles</h2>
+
+  <div class="cards-grid">
+
+    <!-- 01 Velocidad Estándar -->
+    <div class="card">
+      <div class="ts"></div>
+      <span class="cbadge b-std">ESTÁNDAR</span>
+      <p class="plan-num">// 01</p>
+      <p class="plan-name">Velocidad Estándar</p>
+      <p class="plan-sub">Sin Dominio · GitHub Pages</p>
+      <div class="bk">
+        <div class="bk-row"><span class="bk-lbl">Costo/Pág.</span><span class="bk-val">$1,500</span></div>
+        <div class="bk-row"><span class="bk-lbl">Alojamiento</span><span class="bk-val">Git <span class="op">·</span> $300</span></div>
+      </div>
+      <div class="card-foot">
+        <div class="ft-blk"><span class="ft-lbl">Total Inicial</span><span class="ft-amt">$1,800</span></div>
+        <div class="ft-blk"><span class="ft-lbl">Renta Mensual</span><span class="ft-amt renta">$250</span></div>
+      </div>
+        <div class="card-extra">
+         <span class="card-extra-title">Descrpcion</span>
+          <div class="card-extra-content">
+          <!-- Tu contenido aquí -->
+          <p class="detalles-a">* iNCLUYE 
+            <P class="detalles-c">Certificado SSL, Carga Instantanea, Trafico ilimitado.</P>
+          <p class="detalles-b">* VENTAJAS </p>
+          <p class="detalles-c">Velocidad extremna, Estabilidad Costo beneficio, Centralizado</p>
+          <p class="detalles-b">* LIMITACIONES</p>
+          <p class="detalles-c"> Centralizado, Identidad, Inmutabilidad</p>
+            <a href="https://perfil-profesional-web3.github.io/tarjetas-web3/Especificaciones-y-analisis.html#paquete-01">Más detalles</a>
+          </div>
+        </div>
+    </div>
+
+    <!-- 02 Soberanía Web3 -->
+    <div class="card">
+      <div class="ts"></div>
+      <span class="cbadge b-web3">WEB3</span>
+      <p class="plan-num">// 02</p>
+      <p class="plan-name">Soberanía Web3</p>
+      <p class="plan-sub">Sin Dominio · IPFS</p>
+      <div class="bk">
+        <div class="bk-row"><span class="bk-lbl">Costo/Pág.</span><span class="bk-val">$1,500</span></div>
+        <div class="bk-row"><span class="bk-lbl">Alojamiento</span><span class="bk-val">IPFS <span class="op">·</span> $600</span></div>
+      </div>
+      <div class="card-foot">
+        <div class="ft-blk"><span class="ft-lbl">Total Inicial</span><span class="ft-amt">$2,100</span></div>
+        <div class="ft-blk"><span class="ft-lbl">Renta Mensual</span><span class="ft-amt renta">$350</span></div>
+      </div>
+      <div class="card-extra">
+         <span class="card-extra-title">Descrpcion</span>
+          <div class="card-extra-content">
+            <!-- Tu contenido aquí -->
+            <p class="detalles-a">* iNCLUYE 
+            <P class="detalles-c">Identidad CID, Resiliencia Total, Optimimizacion nativa con Brave, Soberania de datos</P>
+            <p class="detalles-b">* VENTAJAS </p>
+            <p class="detalles-c"> Inmotalidad Digital, Resistencia ala Sensura, Privacidad</p>
+            <p class="detalles-b">* LIMITACIONES</p>
+            <p class="detalles-c"> Propagacion dependiendo de los nudos de la red, URL Tecnica sin dominio, Mantenimiento</p>
+            <a href="https://perfil-profesional-web3.github.io/tarjetas-web3/Especificaciones-y-analisis.html#paquete-02">Más detalles</a>
+          </div>
+      </div>
+    </div>
+
+    <!-- 03 Híbrido Inicial -->
+    <div class="card">
+      <div class="ts"></div>
+      <span class="cbadge b-std">HÍBRIDO</span>
+      <p class="plan-num">// 03</p>
+      <p class="plan-name">Híbrido Inicial</p>
+      <p class="plan-sub">Sin Dominio · IPFS + Git</p>
+      <div class="bk">
+        <div class="bk-row"><span class="bk-lbl">Costo/Pág.</span><span class="bk-val">$1,500</span></div>
+        <div class="bk-row"><span class="bk-lbl">Dual Setup</span><span class="bk-val">$800</span></div>
+      </div>
+      <div class="card-foot">
+        <div class="ft-blk"><span class="ft-lbl">Total Inicial</span><span class="ft-amt">$2,300</span></div>
+        <div class="ft-blk"><span class="ft-lbl">Renta Mensual</span><span class="ft-amt renta">$350</span></div>
+      </div>
+      <div class="card-extra">
+         <span class="card-extra-title">Descrpcion</span>
+          <div class="card-extra-content">
+            <!-- Tu contenido aquí -->
+            <p class="detalles-a">* iNCLUYE 
+            <P class="detalles-c">Arquitectura Dual, Optimización de Recursos, Seguridad Inteligente, Puente de Datos</P> 
+            <p class="detalles-b">* VENTAJAS </p>
+            <p class="detalles-c"> Rendimiento Optimo, Prestigio Tecnologico, Resilencia Selectiva</p>
+            <p class="detalles-b">* LIMITACIONES</p>
+            <p class="detalles-c"> Gestion Tecnica, Costo inicial, Sin dominio</p>
+            <a href="https://perfil-profesional-web3.github.io/tarjetas-web3/Especificaciones-y-analisis.html#paquete-03">Más detalles</a>
+
+          </div>
+      </div>
+    </div>
+
+    <!-- 04 Pro Inmortal -->
+    <div class="card">
+      <div class="ts"></div>
+      <span class="cbadge b-pro">★ PRO</span>
+      <p class="plan-num">// 04</p>
+      <p class="plan-name">Pro Inmortal</p>
+      <p class="plan-sub">Con Dominio .poly · IPFS</p>
+      <div class="bk">
+        <div class="bk-row"><span class="bk-lbl">Pág. Premium</span><span class="bk-val">$1,700</span></div>
+        <div class="bk-row"><span class="bk-lbl">Dominio</span><span class="bk-val">$500 <span class="var">· varía según nombre</span></span></div>
+        <div class="bk-row"><span class="bk-lbl">IPFS</span><span class="bk-val">$600</span></div>
+      </div>
+      <div class="card-foot">
+        <div class="ft-blk"><span class="ft-lbl">Total Inicial</span><span class="ft-amt">$2,800</span></div>
+        <div class="ft-blk"><span class="ft-lbl">Renta Mensual</span><span class="ft-amt renta">$350</span></div>
+      </div>
+      <div class="card-extra">
+         <span class="card-extra-title">Descrpcion</span>
+          <div class="card-extra-content">
+            <!-- Tu contenido aquí -->
+            <p class="detalles-a">* iNCLUYE 
+            <P class="detalles-c">Dominio Propio, Alojamiento 100% Web3, Identidad Soberana, Certificado de Inmutabilidad</P> 
+            <p class="detalles-b">* VENTAJAS </p>
+            <p class="detalles-c"> Prestigio Maximo, Resistencia total, Integracion Nativa con Brave </p>
+            <p class="detalles-b">* LIMITACIONES</p>
+            <p class="detalles-c"> Inversion Inicial, Actualizaciones, Gestion de dominio</p>
+            <a href="https://perfil-profesional-web3.github.io/tarjetas-web3/Especificaciones-y-analisis.html#paquete-04">Más detalles</a>
+
+          </div>
+      </div>      
+    </div>
+
+    <!-- 05 Pro Dinámico -->
+    <div class="card">
+      <div class="ts"></div>
+      <span class="cbadge b-pro">★ PRO</span>
+      <p class="plan-num">// 05</p>
+      <p class="plan-name">Pro Dinámico</p>
+      <p class="plan-sub">Con Dominio · Híbrido IPFS/Git</p>
+      <div class="bk">
+        <div class="bk-row"><span class="bk-lbl">Pág. Premium</span><span class="bk-val">$1,700</span></div>
+        <div class="bk-row"><span class="bk-lbl">Dominio</span><span class="bk-val">$500 <span class="var">· varía según nombre</span></span></div>
+        <div class="bk-row"><span class="bk-lbl">Dual</span><span class="bk-val">$400</span></div>
+      </div>
+      <div class="card-foot">
+        <div class="ft-blk"><span class="ft-lbl">Total Inicial</span><span class="ft-amt">$2,600</span></div>
+        <div class="ft-blk"><span class="ft-lbl">Renta Mensual</span><span class="ft-amt renta">$350</span></div>
+      </div>
+      <div class="card-extra">
+         <span class="card-extra-title">Descrpcion</span>
+          <div class="card-extra-content">
+            <!-- Tu contenido aquí -->
+            <p class="detalles-a">* iNCLUYE 
+            <P class="detalles-c">Dominio Personalizado, Arquitectura Inteligente, Optimización Multimedia, SEO & Branding</P> 
+            <p class="detalles-b">* VENTAJAS </p>
+            <p class="detalles-c"> Imagen de Elite, Velocidad Superior, Ahorro Estrategico,  </p>
+            <p class="detalles-b">* LIMITACIONES</p>
+            <p class="detalles-c"> Dependencia Parcial, Costo de Renta, Actualizacion Dual</p>
+            <a href="https://perfil-profesional-web3.github.io/tarjetas-web3/Especificaciones-y-analisis.html#paquete-05">Más detalles</a>
+
+          </div>
+      </div>     
+    </div>
+
+    <!-- 06 Respaldo Total -->
+    <div class="card">
+      <div class="ts"></div>
+      <span class="cbadge b-web3">BACKUP</span>
+      <p class="plan-num">// 06</p>
+      <p class="plan-name">Respaldo Total</p>
+      <p class="plan-sub">Redundante · Git + IPFS Mirror</p>
+      <div class="bk">
+        <div class="bk-row"><span class="bk-lbl">Costo/Pág.</span><span class="bk-val">$1,500</span></div>
+        <div class="bk-row"><span class="bk-lbl">Git</span><span class="bk-val">$300</span></div>
+        <div class="bk-row"><span class="bk-lbl">Mirror IPFS</span><span class="bk-val">$600</span></div>
+      </div>
+      <div class="card-foot">
+        <div class="ft-blk"><span class="ft-lbl">Total Inicial</span><span class="ft-amt">$2,400</span></div>
+        <div class="ft-blk"><span class="ft-lbl">Renta Mensual</span><span class="ft-amt renta">$350</span></div>
+      </div>
+            <div class="card-extra">
+         <span class="card-extra-title">Descrpcion</span>
+          <div class="card-extra-content">
+            <!-- Tu contenido aquí -->
+            <p class="detalles-a">* iNCLUYE 
+            <P class="detalles-c"> Garantía de Disponibilidad, Sincronización Dual, Enlace de Emergencia</P> 
+            <p class="detalles-b">* VENTAJAS </p>
+            <p class="detalles-c"> Cero riesgo, Velocidad y Resiliencia, Tranquilidad Total  </p>
+            <p class="detalles-b">* LIMITACIONES</p>
+            <p class="detalles-c"> Complejidad de Actualizacion, Sin Dominio, Costo de Renta</p>
+            <a href="https://perfil-profesional-web3.github.io/tarjetas-web3/Especificaciones-y-analisis.html#paquete-06">Más detalles</a>
+
+          </div>
+      </div>  
+    </div>
+
+    <!-- 07 Control Total -->
+    <div class="card card-ent">
+      <div class="ts"></div>
+      <span class="cbadge b-ent">ENTERPRISE</span>
+      <div class="ent-inner">
+        <div class="ent-icon">⬡</div>
+        <div class="ent-body">
+          <p class="plan-num">// 07</p>
+          <p class="plan-name">Control Total</p>
+          <p class="desc">Configuración técnica <strong>100% personalizada</strong>. Toda la infraestructura,
+            dominios, nodos y contratos registrados directamente <strong>a nombre del cliente</strong>.
+            Sin intermediarios. Sin dependencias externas. Autonomía tecnológica absoluta.</p>
+          <span class="ent-cta">Solicitar bajo acuerdo →</span>
+        </div>
+        <div class="ent-price">
+          <span class="ft-lbl">Precio</span>
+          <span class="ft-amt" style="color:var(--green);text-shadow:0 0 8px var(--green),0 0 20px #34d39948;font-size:1.15rem;">Bajo Acuerdo</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cards-grid -->
+
+  <!-- ══════════════════════════════════
+       SECCIÓN 2 · PRECIOS GENERALES
+  ══════════════════════════════════ -->
+  <p class="sec-label">// sección 02</p>
+  <h2 class="sec-title">⬡ Lista de Precios Generales · Servicios Individuales</h2>
+
+  <div class="services-section">
+    <div class="services-cols">
+
+      <!-- A -->
+      <div class="svc-col">
+        <p class="svc-col-head">A · Diseño y Creación</p>
+        <p style="font-family:var(--font-mono);font-size:.58rem;color:var(--muted);letter-spacing:.1em;margin-bottom:12px;">PAGO ÚNICO</p>
+        <div class="svc-item"><span class="svc-name">Diseño Básico</span><span class="svc-price">$1,500</span></div>
+        <div class="svc-item"><span class="svc-name">Diseño Completo</span><span class="svc-price">$2,200</span></div>
+        <div class="svc-item"><span class="svc-name">Ruleta de Fotos (5 fotos)</span><span class="svc-price gold">$350</span></div>
+        <div class="svc-item"><span class="svc-name">Foto Extra (c/u)</span><span class="svc-price gold">$50</span></div>
+        <div class="svc-item"><span class="svc-name">Sección Extra</span><span class="svc-price">$450</span></div>
+      </div>
+
+      <!-- B -->
+      <div class="svc-col">
+        <p class="svc-col-head">B · Mantenimiento y Actualizaciones</p>
+        <p style="font-family:var(--font-mono);font-size:.58rem;color:var(--muted);letter-spacing:.1em;margin-bottom:12px;">POR INTERVENCIÓN</p>
+        <div class="svc-item"><span class="svc-name">Actualización GitHub</span><span class="svc-price green">$150</span></div>
+        <div class="svc-item"><span class="svc-name">Actualización Web3 / Pinata</span><span class="svc-price green">$300</span></div>
+        <div class="svc-item"><span class="svc-name">Respaldo Inmortal (Mirror)</span><span class="svc-price green">$350</span></div>
+      </div>
+
+      <!-- C -->
+      <div class="svc-col">
+        <p class="svc-col-head">C · Infraestructura General · Pinata</p>
+        <p style="font-family:var(--font-mono);font-size:.58rem;color:var(--muted);letter-spacing:.1em;margin-bottom:12px;">USO ADICIONAL</p>
+        <div class="svc-item"><span class="svc-name">Dominio</span><span class="svc-price">$300 a $500</span></div>
+        <div class="svc-item"><span class="svc-name">Alojamiento Git Hub</span><span class="svc-price">$250</span></div>
+        <div class="svc-item"><span class="svc-name">Alojamiento Pinata</span><span class="svc-price">$350</span></div>
+        <div class="svc-item"><span class="svc-name">Gas por la red</span><span class="svc-price gold">Incluida en renta</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       INFRA TABLE (desglose Pinata)
+  ══════════════════════════════════ -->
+  <p class="sec-label">// cargos extra · desglose</p>
+  <h2 class="sec-title">⬡ Desglose de Infraestructura · Pinata</h2>
+
+  <section class="infra-section">
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Recurso</th>
+            <th>Descripción</th>
+            <th>Unidad</th>
+            <th style="text-align:right">Costo MXN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GB Almacenamiento</td>
+            <td>Espacio persistente en red IPFS vía Pinata</td>
+            <td>Por GB</td>
+            <td>$10.50</td>
+          </tr>
+          <tr>
+            <td>GB Ancho de Banda</td>
+            <td>Transferencia de datos salientes desde nodos</td>
+            <td>Por GB</td>
+            <td>$12.50</td>
+          </tr>
+          <tr>
+            <td>10k Requests</td>
+            <td>Solicitudes a la API de Pinata por bloque de 10,000</td>
+            <td>Por 10k req</td>
+            <td>$24.50</td>
+          </tr>
+          <tr>
+            <td>Gateway Dedicada</td>
+            <td>Acceso a gateway privado de alta disponibilidad</td>
+            <td>Mensual</td>
+            <td>$150.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       SECCIÓN 3 · LEYENDAS
+  ══════════════════════════════════ -->
+  <p class="sec-label">// sección 03</p>
+  <h2 class="sec-title">⬡ Leyendas y Descripciones</h2>
+
+  <div class="legends-section">
+
+    <div class="legend-card">
+      <div class="legend-icon">🚀</div>
+      <div class="legend-text">
+        <p class="legend-head">Nota sobre Dominios</p>
+        <p class="legend-body">El costo del dominio es <em>variable</em> dependiendo del nombre
+          seleccionado y la extensión elegida: <em>.com</em>, <em>.poly</em>, <em>.eth</em>
+          u otras extensiones Web3. El precio base indicado en cada paquete ($500) es referencial;
+          el costo final se determina al momento de la consulta según disponibilidad y registrador.</p>
+      </div>
+    </div>
+
+    <div class="legend-card">
+      <div class="legend-icon">🛡️</div>
+      <div class="legend-text">
+        <p class="legend-head">Descripción de la Renta Mensual</p>
+        <p class="legend-body">La renta mensual cubre el <em>mantenimiento de los nodos</em> en la
+          red descentralizada, actualizaciones de seguridad y estabilidad del servidor, para garantizar
+          que su tarjeta digital sea <em>inmortal</em>. Incluye monitoreo continuo y respaldo de
+          integridad en la cadena de bloques.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="page-foot">
+    <div class="foot-icons">
+      <span title="Brave Browser">🦁</span>
+      <span title="IPFS">⬡</span>
+      <span title="Blockchain">⛓️</span>
+      <span title="MXN">🇲🇽</span>
+      <span title="Web3">🌐</span>
+    </div>
+    <p>
+      Optimizado para navegadores <span>Web3 (Brave)</span>&nbsp;·&nbsp;
+      Precios expresados en <span>MXN</span>&nbsp;·&nbsp;
+      La renta mensual asegura el mantenimiento de la red descentralizada.
+    </p>
+  </footer>
+
+</div><!-- /page -->
+</body>
+</html>
