@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Villas del Sol — Inmobiliaria de Lujo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--oro:#c9a84c;--oro2:#e8c96d;--oro3:#f5e6c0;--bg:#fdfaf4;--oscuro:#1a1200;--muted:#7a6a4a;--blanco:#fff;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--oscuro);}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:rgba(253,250,244,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.2);}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--oscuro);letter-spacing:1px;}
+  .nav-logo span{color:var(--oro);}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{text-decoration:none;color:var(--muted);font-size:0.88rem;font-weight:500;letter-spacing:.5px;transition:color .2s;}
+  .nav-links a:hover{color:var(--oro);}
+  .nav-cta{padding:10px 24px;background:var(--oscuro);color:var(--oro2);font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:600;border:none;border-radius:4px;cursor:pointer;text-decoration:none;letter-spacing:.5px;transition:all .2s;}
+  .nav-cta:hover{background:var(--oro);color:var(--oscuro);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;background:linear-gradient(180deg,#fdfaf4 0%,#f5edd6 100%);position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:10%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);pointer-events:none;}
+  .hero-tag{display:inline-block;font-size:0.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--oro);border:1px solid rgba(201,168,76,0.4);padding:6px 18px;border-radius:2px;margin-bottom:28px;}
+  .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:700;line-height:1.05;letter-spacing:-1px;margin-bottom:20px;}
+  .hero h1 em{font-style:italic;color:var(--oro);}
+  .hero p{font-size:1.05rem;color:var(--muted);max-width:520px;margin:0 auto 40px;line-height:1.7;}
+  .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .btn-gold{padding:14px 36px;background:linear-gradient(135deg,var(--oro),var(--oro2));color:var(--oscuro);font-family:'Jost',sans-serif;font-weight:700;font-size:0.92rem;border:none;border-radius:4px;cursor:pointer;text-decoration:none;letter-spacing:.5px;transition:all .2s;}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.35);}
+  .btn-outline{padding:14px 36px;background:transparent;color:var(--oscuro);font-family:'Jost',sans-serif;font-weight:500;font-size:0.92rem;border:1.5px solid rgba(26,18,0,0.3);border-radius:4px;cursor:pointer;text-decoration:none;letter-spacing:.5px;transition:all .2s;}
+  .btn-outline:hover{border-color:var(--oro);color:var(--oro);}
+
+  /* STATS */
+  .stats{display:flex;justify-content:center;gap:0;background:var(--oscuro);padding:32px 40px;}
+  .stat{text-align:center;padding:0 48px;border-right:1px solid rgba(201,168,76,0.2);}
+  .stat:last-child{border-right:none;}
+  .stat .num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--oro2);}
+  .stat .lbl{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:4px;letter-spacing:1px;text-transform:uppercase;}
+
+  /* PROPIEDADES */
+  .section{padding:80px 40px;max-width:1200px;margin:0 auto;}
+  .sec-label{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--oro);margin-bottom:12px;}
+  .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;line-height:1.1;margin-bottom:48px;}
+  .props-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px;}
+  .prop-card{background:var(--blanco);border:1px solid rgba(201,168,76,0.2);overflow:hidden;transition:all .3s;cursor:pointer;}
+  .prop-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(201,168,76,0.15);}
+  .prop-img{height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;}
+  .prop-tag{position:absolute;top:16px;left:16px;background:var(--oscuro);color:var(--oro2);font-size:0.68rem;font-weight:600;padding:5px 12px;letter-spacing:1px;text-transform:uppercase;}
+  .prop-body{padding:24px 26px;}
+  .prop-body h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:6px;}
+  .prop-body .loc{font-size:0.82rem;color:var(--muted);margin-bottom:16px;}
+  .prop-specs{display:flex;gap:18px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--oro3);}
+  .spec{font-size:0.82rem;color:var(--muted);}
+  .spec strong{color:var(--oscuro);font-weight:600;display:block;}
+  .prop-footer{display:flex;justify-content:space-between;align-items:center;}
+  .prop-price{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--oscuro);}
+  .prop-btn{padding:9px 20px;background:var(--oro);color:var(--oscuro);font-family:'Jost',sans-serif;font-size:0.8rem;font-weight:700;border:none;cursor:pointer;transition:all .2s;letter-spacing:.5px;}
+  .prop-btn:hover{background:var(--oscuro);color:var(--oro2);}
+
+  /* SERVICIOS */
+  .servicios-bg{background:linear-gradient(135deg,var(--oscuro),#2d1f00);padding:80px 40px;}
+  .servicios-inner{max-width:1200px;margin:0 auto;}
+  .srv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;margin-top:48px;}
+  .srv{background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.12);padding:32px 28px;transition:all .3s;}
+  .srv:hover{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.3);}
+  .srv .ico{font-size:2rem;margin-bottom:16px;}
+  .srv h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:8px;}
+  .srv p{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.6;}
+
+  /* CONTACTO */
+  .contacto{padding:80px 40px;max-width:900px;margin:0 auto;text-align:center;}
+  .contacto p{font-size:1rem;color:var(--muted);margin-bottom:32px;}
+  .contact-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .btn-wa{display:flex;align-items:center;gap:10px;padding:16px 32px;background:#22c55e;color:#fff;font-family:'Jost',sans-serif;font-weight:700;font-size:1rem;border:none;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s;}
+  .btn-wa:hover{background:#16a34a;transform:translateY(-2px);}
+  .btn-tel{display:flex;align-items:center;gap:10px;padding:16px 32px;background:transparent;color:var(--oscuro);font-family:'Jost',sans-serif;font-weight:500;font-size:1rem;border:1.5px solid rgba(26,18,0,0.25);border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s;}
+  .btn-tel:hover{border-color:var(--oro);color:var(--oro);}
+
+  /* ═══ BRAVE / WEB3 BANNER ═══ */
+  .brave-banner{position:relative;background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0c2340 100%);padding:48px 40px;overflow:hidden;}
+  .brave-banner::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,0.12),transparent 70%);pointer-events:none;}
+  .brave-banner::after{content:'';position:absolute;bottom:-60px;left:10%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.08),transparent 70%);pointer-events:none;}
+  .brave-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+  .brave-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+  .brave-icon{width:56px;height:56px;background:linear-gradient(135deg,#fb7215,#ff9d4d);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;box-shadow:0 8px 24px rgba(251,114,21,0.35);}
+  .brave-header h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#fff;line-height:1.2;}
+  .brave-header h3 span{color:var(--oro2);}
+  .brave-body{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
+  @media(max-width:640px){.brave-body{grid-template-columns:1fr;}}
+  .brave-item{background:rgba(255,255,255,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:12px;padding:20px;}
+  .brave-item .bi-icon{font-size:1.4rem;margin-bottom:10px;}
+  .brave-item h4{font-size:0.9rem;font-weight:600;color:#38bdf8;margin-bottom:6px;}
+  .brave-item p{font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.5;}
+  .brave-viral{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(56,189,248,0.08));border:1px solid rgba(201,168,76,0.25);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+  .brave-viral .vi{font-size:2rem;flex-shrink:0;}
+  .brave-viral p{font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.5;}
+  .brave-viral strong{color:var(--oro2);}
+  .brave-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:linear-gradient(135deg,#fb7215,#ff9d4d);color:#fff;font-family:'Jost',sans-serif;font-weight:700;font-size:0.92rem;border:none;border-radius:8px;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 4px 16px rgba(251,114,21,0.35);}
+  .brave-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(251,114,21,0.5);}
+
+  /* FOOTER */
+  footer{background:var(--oscuro);padding:40px;text-align:center;}
+  footer .f-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--oro2);margin-bottom:12px;}
+  footer p{font-size:0.78rem;color:rgba(255,255,255,0.35);}
+
+  @media(max-width:768px){
+    nav{padding:16px 20px;}
+    .nav-links{display:none;}
+    .stats{flex-wrap:wrap;gap:20px;}
+    .stat{border-right:none;}
+    .section,.servicios-bg,.contacto{padding:48px 20px;}
+    .brave-banner{padding:36px 20px;}
+    .brave-header{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Villas<span>del Sol</span></div>
+  <ul class="nav-links">
+    <li><a href="#propiedades">Propiedades</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a class="nav-cta" href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20una%20propiedad" target="_blank">Agendar Cita</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Inmobiliaria de Lujo · CDMX</div>
+  <h1>Encuentra tu<br><em>hogar perfecto</em><br>en el sol</h1>
+  <p>Más de 20 años conectando familias con propiedades extraordinarias en las mejores zonas de la ciudad.</p>
+  <div class="hero-btns">
+    <a class="btn-gold" href="#propiedades">Ver Propiedades</a>
+    <a class="btn-outline" href="#contacto">Hablar con un Asesor</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="num">500+</div><div class="lbl">Propiedades</div></div>
+  <div class="stat"><div class="num">2,400</div><div class="lbl">Familias Felices</div></div>
+  <div class="stat"><div class="num">20+</div><div class="lbl">Años de Experiencia</div></div>
+  <div class="stat"><div class="num">98%</div><div class="lbl">Satisfacción</div></div>
+</div>
+
+<!-- PROPIEDADES -->
+<section class="section" id="propiedades">
+  <div class="sec-label">Portafolio Destacado</div>
+  <h2 class="sec-title">Propiedades<br>Seleccionadas</h2>
+  <div class="props-grid">
+    <div class="prop-card" onclick="contactar('Casa Residencial Las Lomas')">
+      <div class="prop-img" style="background:linear-gradient(135deg,#f5e6c0,#fdfaf4);">🏠<div class="prop-tag">Venta</div></div>
+      <div class="prop-body">
+        <h3>Casa Residencial Las Lomas</h3>
+        <div class="loc">📍 Lomas de Chapultepec · CDMX</div>
+        <div class="prop-specs">
+          <div class="spec"><strong>4</strong>Recámaras</div>
+          <div class="spec"><strong>3.5</strong>Baños</div>
+          <div class="spec"><strong>420m²</strong>Construcción</div>
+          <div class="spec"><strong>2</strong>Cajones</div>
+        </div>
+        <div class="prop-footer">
+          <div class="prop-price">$9,500,000</div>
+          <button class="prop-btn">Contactar</button>
+        </div>
+      </div>
+    </div>
+    <div class="prop-card" onclick="contactar('Penthouse Polanco')">
+      <div class="prop-img" style="background:linear-gradient(135deg,#e8f4fd,#f0f8ff);">🏢<div class="prop-tag">Renta</div></div>
+      <div class="prop-body">
+        <h3>Penthouse Polanco</h3>
+        <div class="loc">📍 Polanco · Torre Ámsterdam</div>
+        <div class="prop-specs">
+          <div class="spec"><strong>3</strong>Recámaras</div>
+          <div class="spec"><strong>3</strong>Baños</div>
+          <div class="spec"><strong>220m²</strong>Total</div>
+          <div class="spec"><strong>Roof</strong>Privado</div>
+        </div>
+        <div class="prop-footer">
+          <div class="prop-price">$38,000/mes</div>
+          <button class="prop-btn">Contactar</button>
+        </div>
+      </div>
+    </div>
+    <div class="prop-card" onclick="contactar('Villa Jardín Pedregal')">
+      <div class="prop-img" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);">🌿<div class="prop-tag">Venta</div></div>
+      <div class="prop-body">
+        <h3>Villa Jardín Pedregal</h3>
+        <div class="loc">📍 Pedregal de San Ángel · CDMX</div>
+        <div class="prop-specs">
+          <div class="spec"><strong>5</strong>Recámaras</div>
+          <div class="spec"><strong>4</strong>Baños</div>
+          <div class="spec"><strong>600m²</strong>Terreno</div>
+          <div class="spec"><strong>Alberca</strong>Privada</div>
+        </div>
+        <div class="prop-footer">
+          <div class="prop-price">$14,200,000</div>
+          <button class="prop-btn">Contactar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<div class="servicios-bg" id="servicios">
+  <div class="servicios-inner">
+    <div class="sec-label" style="color:var(--oro2)">Lo que Ofrecemos</div>
+    <h2 class="sec-title" style="color:#fff;margin-bottom:0;">Un servicio<br><em style="color:var(--oro2);font-style:italic;">integral y exclusivo</em></h2>
+    <div class="srv-grid">
+      <div class="srv"><div class="ico">🔑</div><h4>Compra y Venta</h4><p>Asesoría completa desde la búsqueda hasta la escritura notarial</p></div>
+      <div class="srv"><div class="ico">📋</div><h4>Arrendamiento</h4><p>Gestión, contratos y cobranza de tu inmueble en renta</p></div>
+      <div class="srv"><div class="ico">📊</div><h4>Avalúos Certificados</h4><p>Valuación oficial para crédito hipotecario y declaración fiscal</p></div>
+      <div class="srv"><div class="ico">🤝</div><h4>Asesoría Hipotecaria</h4><p>Comparamos INFONAVIT, FOVISSSTE y banca privada para ti</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="sec-label" style="text-align:center">Hablemos</div>
+  <h2 class="sec-title">¿Lista para encontrar<br><em style="font-style:italic;color:var(--oro)">tu hogar ideal?</em></h2>
+  <p>Nuestro equipo de asesores está disponible para guiarte en cada paso del proceso.</p>
+  <div class="contact-btns">
+    <a class="btn-wa" href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20interesa%20una%20propiedad%20de%20Villas%20del%20Sol" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a class="btn-tel" href="tel:+521XXXXXXXXXX">📞 Llamar Ahora</a>
+  </div>
+</section>
+
+<!-- ═══ BRAVE / WEB3 BANNER ═══ -->
+<div class="brave-banner">
+  <div class="brave-inner">
+    <div class="brave-header">
+      <div class="brave-icon">🦁</div>
+      <h3>🚀 Experiencia de <span>Alta Velocidad</span></h3>
+    </div>
+    <div class="brave-body">
+      <div class="brave-item">
+        <div class="bi-icon">⬡</div>
+        <h4>Red Descentralizada (Web3)</h4>
+        <p>Esta página vive en la red descentralizada. Para carga instantánea y máxima seguridad, ábrela desde el navegador Brave.</p>
+      </div>
+      <div class="brave-item">
+        <div class="bi-icon">🔒</div>
+        <h4>Página Inmortal</h4>
+        <p>Aunque internet falle, nuestro respaldo Web3 mantiene tu información disponible siempre. Sin servidores que caigan.</p>
+      </div>
+      <div class="brave-item">
+        <div class="bi-icon">🛡️</div>
+        <h4>¿Por qué Brave?</h4>
+        <p>Es más rápido, bloquea anuncios automáticamente y se conecta directamente con nuestra copia Web3.</p>
+      </div>
+      <div class="brave-item">
+        <div class="bi-icon">📡</div>
+        <h4>Sin Censura Posible</h4>
+        <p>Tu información vive distribuida en miles de nodos alrededor del mundo. Nadie puede borrarla.</p>
+      </div>
+    </div>
+    <div class="brave-viral">
+      <div class="vi">🚀</div>
+      <p><strong>¡Vuélvete Viral!</strong> En la red descentralizada, cuanta más gente nos visita, más rápida y estable se vuelve nuestra tarjeta. Comparte este link y ayúdanos a crecer juntos.</p>
+    </div>
+    <a class="brave-btn" href="https://brave.com/download" target="_blank">
+      🦁 Descargar Brave Gratis
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Villas del Sol</div>
+  <p>Inmobiliaria de Lujo · CDMX · Cédula AMPI 2024-0048</p>
+  <p style="margin-top:6px;">© 2025 Villas del Sol · Todos los derechos reservados</p>
+</footer>
+
+<script>
+function contactar(prop) {
+  const msg = encodeURIComponent(`Hola! Me interesa la propiedad: ${prop}\n\n¿Pueden darme más información?`);
+  window.open(`https://wa.me/521XXXXXXXXXX?text=${msg}`, '_blank');
+}
+</script>
+</body>
+</html>

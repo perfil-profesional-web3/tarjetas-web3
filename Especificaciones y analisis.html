@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Especificaciones Técnicas · Perfiles Web3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #050a15;
+      --bg2:       #070d1c;
+      --surface:   #09101e;
+      --surface2:  #060c18;
+      --neon:      #38bdf8;
+      --neon2:     #06b6d4;
+      --neon3:     #7dd3fc;
+      --accent:    #f0f9ff;
+      --muted:     #4a6080;
+      --muted2:    #334d64;
+      --gold:      #fbbf24;
+      --green:     #34d399;
+      --green2:    #10b981;
+      --red:       #f87171;
+      --red2:      #ef4444;
+      --purple:    #a78bfa;
+      --font-hd:   'Orbitron', monospace;
+      --font-mono: 'Share Tech Mono', monospace;
+      --font-body: 'Rajdhani', sans-serif;
+      --glow:      0 0 8px #38bdf8, 0 0 22px #38bdf860, 0 0 45px #38bdf820;
+      --glow-sm:   0 0 4px #38bdf8, 0 0 12px #38bdf850;
+      --glow-g:    0 0 6px #34d399, 0 0 16px #34d39950;
+      --glow-r:    0 0 6px #f87171, 0 0 14px #f8717140;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--accent);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── Dot-grid background ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(56,189,248,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,.04) 1px, transparent 1px),
+        radial-gradient(circle, rgba(56,189,248,.06) 1px, transparent 1px);
+      background-size: 60px 60px, 60px 60px, 30px 30px;
+      pointer-events: none; z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 0%, #38bdf80e 0%, transparent 60%),
+        radial-gradient(ellipse 60% 30% at 50% 100%, #050a1595 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Keyframes ── */
+    @keyframes flicker {
+      0%,100%{opacity:1} 91%{opacity:1} 92%{opacity:.88} 93%{opacity:1} 95%{opacity:.94} 96%{opacity:1}
+    }
+    @keyframes title-glow {
+      0%,100%{ text-shadow: 0 0 10px #38bdf8, 0 0 30px #38bdf870, 0 0 60px #38bdf835; }
+      50%    { text-shadow: 0 0 20px #38bdf8, 0 0 50px #38bdf890, 0 0 90px #38bdf850; }
+    }
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fade-in {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes bracket-pulse {
+      0%,100% { opacity: .55; }
+      50%     { opacity: 1; }
+    }
+    @keyframes scan-line {
+      0%   { top: -2px; }
+      100% { top: 100%; }
+    }
+    @keyframes num-glow {
+      0%,100% { text-shadow: 0 0 8px var(--neon), 0 0 20px #38bdf860; }
+      50%     { text-shadow: 0 0 16px var(--neon), 0 0 40px #38bdf880; }
+    }
+    @keyframes float-btn {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-4px); }
+    }
+
+    /* ══════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════ */
+    .page {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      padding: 100px 24px 80px;
+      animation: flicker 10s infinite;
+    }
+
+    /* ══════════════════════════════════
+       BACK BUTTON (sticky top)
+    ══════════════════════════════════ */
+    .back-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: linear-gradient(180deg, #050a15f5 0%, #050a15cc 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #38bdf818;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .back-bar::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, #38bdf840 30%, #38bdf840 70%, transparent);
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--neon);
+      border: 1px solid #38bdf840;
+      padding: 8px 18px;
+      border-radius: 5px;
+      background: #38bdf80c;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, box-shadow .2s, border-color .2s;
+      animation: float-btn 3s ease-in-out infinite;
+    }
+    .btn-back:hover {
+      background: #38bdf818;
+      border-color: var(--neon);
+      box-shadow: var(--glow-sm), inset 0 0 12px #38bdf80a;
+    }
+    .btn-back .arr { font-size: .9rem; }
+
+    /* quick-nav pills */
+    .quick-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .qn-label {
+      font-family: var(--font-mono);
+      font-size: .58rem;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .qn-pill {
+      font-family: var(--font-mono);
+      font-size: .58rem;
+      letter-spacing: .08em;
+      color: var(--muted);
+      border: 1px solid #38bdf818;
+      padding: 3px 9px;
+      border-radius: 20px;
+      text-decoration: none;
+      background: #38bdf806;
+      transition: color .2s, border-color .2s, background .2s;
+      white-space: nowrap;
+    }
+    .qn-pill:hover {
+      color: var(--neon);
+      border-color: #38bdf850;
+      background: #38bdf810;
+    }
+
+    /* ══════════════════════════════════
+       PAGE HEADER
+    ══════════════════════════════════ */
+    .page-header {
+      text-align: center;
+      margin-bottom: 72px;
+      animation: slide-up .5s ease both;
+    }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      letter-spacing: .36em;
+      color: var(--neon);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      opacity: .75;
+    }
+    .page-header h1 {
+      font-family: var(--font-hd);
+      font-size: clamp(1.6rem, 4.5vw, 3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #fff;
+      line-height: 1.1;
+      animation: title-glow 3.5s ease-in-out infinite;
+    }
+    .page-header h1 em { font-style: normal; color: var(--neon); }
+    .page-header .sub {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+      margin-top: 12px;
+      letter-spacing: .04em;
+    }
+    .divider {
+      display: flex; align-items: center; gap: 10px;
+      margin: 22px auto 0; width: fit-content;
+    }
+    .dl { width: 60px; height: 1px; background: linear-gradient(90deg,transparent,var(--neon)); }
+    .dr { width: 60px; height: 1px; background: linear-gradient(90deg,var(--neon),transparent); }
+    .dd { width: 6px; height: 6px; background: var(--neon); transform: rotate(45deg); box-shadow: var(--glow-sm); }
+
+    /* ══════════════════════════════════
+       PACKAGE BLOCK
+    ══════════════════════════════════ */
+    .pkg-block {
+      position: relative;
+      background: linear-gradient(160deg, #09101e 0%, #060c18 100%);
+      border: 1px solid #38bdf825;
+      border-radius: 12px;
+      padding: 36px 32px 32px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      animation: slide-up .5s ease both;
+      transition: border-color .3s, box-shadow .3s;
+      scroll-margin-top: 80px; /* offset for sticky bar */
+    }
+    .pkg-block:hover {
+      border-color: #38bdf845;
+      box-shadow: 0 0 0 1px #38bdf818, 0 0 40px #38bdf80c;
+    }
+
+    /* scan line on hover */
+    .pkg-block::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: -2px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon) 50%, transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .pkg-block:hover::before { opacity: .6; }
+
+    /* bracket corners */
+    .pkg-block .brk-tl, .pkg-block .brk-tr,
+    .pkg-block .brk-bl, .pkg-block .brk-br {
+      position: absolute;
+      width: 18px; height: 18px;
+      border-color: var(--neon);
+      border-style: solid;
+      animation: bracket-pulse 3s ease-in-out infinite;
+    }
+    .pkg-block .brk-tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+    .pkg-block .brk-tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+    .pkg-block .brk-bl { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+    .pkg-block .brk-br { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+
+    /* stagger */
+    .pkg-block:nth-child(1){ animation-delay: .05s; }
+    .pkg-block:nth-child(2){ animation-delay: .10s; }
+    .pkg-block:nth-child(3){ animation-delay: .15s; }
+    .pkg-block:nth-child(4){ animation-delay: .20s; }
+    .pkg-block:nth-child(5){ animation-delay: .25s; }
+    .pkg-block:nth-child(6){ animation-delay: .30s; }
+
+    /* ── Package Header ── */
+    .pkg-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 26px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #38bdf818;
+    }
+    .pkg-num {
+      font-family: var(--font-hd);
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--neon);
+      line-height: 1;
+      flex-shrink: 0;
+      animation: num-glow 3s ease-in-out infinite;
+      letter-spacing: -.02em;
+    }
+    .pkg-title-group { flex: 1; }
+    .pkg-title {
+      font-family: var(--font-hd);
+      font-size: clamp(.85rem, 2.2vw, 1.1rem);
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .pkg-concept {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .pkg-badge {
+      font-family: var(--font-mono);
+      font-size: .58rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid currentColor;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 2px;
+    }
+    .badge-std   { color: var(--neon3);  border-color: #7dd3fc35; background: #7dd3fc0a; }
+    .badge-web3  { color: var(--purple); border-color: #a78bfa35; background: #a78bfa0a; }
+    .badge-hyb   { color: var(--neon2);  border-color: #06b6d435; background: #06b6d40a; }
+    .badge-pro   { color: var(--gold);   border-color: #fbbf2435; background: #fbbf240a; }
+    .badge-back  { color: var(--green);  border-color: #34d39935; background: #34d3990a; }
+
+    /* ── Description Block ── */
+    .pkg-desc {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: #6a8a9a;
+      line-height: 1.7;
+      margin-bottom: 26px;
+      padding: 14px 18px;
+      background: #38bdf806;
+      border-left: 2px solid #38bdf838;
+      border-radius: 0 6px 6px 0;
+    }
+    .pkg-desc em { font-style: normal; color: #8bbcd0; }
+
+    /* ── Includes Block ── */
+    .block-title {
+      font-family: var(--font-mono);
+      font-size: .64rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .block-title::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, #38bdf840, transparent);
+    }
+
+    .includes-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+    .includes-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-size: .95rem;
+      color: #7a9aaa;
+      line-height: 1.5;
+    }
+    .includes-list li .ico {
+      color: var(--neon);
+      font-size: .85rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+      text-shadow: var(--glow-sm);
+    }
+
+    /* ── Performance Analysis (2 cols) ── */
+    .perf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .perf-col {
+      border-radius: 8px;
+      padding: 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .perf-col::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+    .perf-pros {
+      background: #34d39908;
+      border: 1px solid #34d39928;
+    }
+    .perf-pros::before {
+      background: linear-gradient(90deg, transparent, var(--green) 50%, transparent);
+      opacity: .5;
+    }
+    .perf-cons {
+      background: #f8717108;
+      border: 1px solid #f8717128;
+    }
+    .perf-cons::before {
+      background: linear-gradient(90deg, transparent, var(--red) 50%, transparent);
+      opacity: .45;
+    }
+
+    .perf-head {
+      font-family: var(--font-mono);
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .perf-pros .perf-head { color: var(--green); }
+    .perf-cons .perf-head { color: var(--red); }
+
+    .perf-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .perf-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+    .perf-pros .perf-list li { color: #5ab890; }
+    .perf-cons .perf-list li { color: #c08080; }
+    .perf-pros .perf-list li .dot { color: var(--green); text-shadow: var(--glow-g); flex-shrink: 0; }
+    .perf-cons .perf-list li .dot { color: var(--red);   text-shadow: var(--glow-r); flex-shrink: 0; }
+
+    /* ══════════════════════════════════
+       PINATA COSTOS EXTRA
+    ══════════════════════════════════ */
+    .pinata-section {
+      margin-top: 56px;
+      padding: 32px 30px;
+      background: linear-gradient(160deg, #070f1a, #050910);
+      border: 1px solid #38bdf820;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      animation: slide-up .5s ease .35s both;
+    }
+    .pinata-section::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon) 30%, var(--neon2) 70%, transparent);
+      opacity: .45;
+    }
+    .pinata-section .brk-tl, .pinata-section .brk-br {
+      position: absolute;
+      width: 16px; height: 16px;
+      border-color: var(--neon);
+      border-style: solid;
+      opacity: .5;
+    }
+    .pinata-section .brk-tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+    .pinata-section .brk-br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+    .pinata-title {
+      font-family: var(--font-hd);
+      font-size: clamp(.8rem, 2vw, 1rem);
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .pinata-title span { color: var(--neon); }
+    .pinata-sub {
+      font-family: var(--font-body);
+      font-size: .9rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .pinata-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .pinata-item {
+      background: #38bdf808;
+      border: 1px solid #38bdf818;
+      border-radius: 8px;
+      padding: 14px 16px;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .pinata-item:hover {
+      border-color: #38bdf848;
+      box-shadow: 0 0 14px #38bdf80e;
+    }
+    .pinata-item .p-icon {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .pinata-item .p-name {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .pinata-item .p-price {
+      font-family: var(--font-hd);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--neon);
+      text-shadow: var(--glow-sm);
+    }
+    .pinata-item .p-unit {
+      font-family: var(--font-mono);
+      font-size: .58rem;
+      color: var(--muted2);
+      letter-spacing: .1em;
+      margin-top: 2px;
+    }
+
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    .page-foot {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      border-top: 1px solid #38bdf812;
+    }
+    .page-foot p {
+      font-family: var(--font-mono);
+      font-size: .64rem;
+      color: var(--muted2);
+      letter-spacing: .1em;
+      line-height: 2;
+    }
+    .page-foot span { color: var(--neon); }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: #38bdf835; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--neon); }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .page { padding: 90px 14px 60px; }
+      .pkg-block { padding: 28px 18px 22px; }
+      .perf-grid { grid-template-columns: 1fr; }
+      .back-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .quick-nav { display: none; }
+      .pkg-header { flex-wrap: wrap; }
+      .pkg-num { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     STICKY TOP BAR
+══════════════════════════════════ -->
+<nav class="back-bar">
+  <a href="planes-precios.html" class="btn-back">
+    <span class="arr">←</span> Volver a la Vitrina
+  </a>
+  <div class="quick-nav">
+    <span class="qn-label">ir a:</span>
+    <a href="#paquete-01" class="qn-pill">01 · Estándar</a>
+    <a href="#paquete-02" class="qn-pill">02 · Web3</a>
+    <a href="#paquete-03" class="qn-pill">03 · Híbrido</a>
+    <a href="#paquete-04" class="qn-pill">04 · Pro Inmortal</a>
+    <a href="#paquete-05" class="qn-pill">05 · Pro Dinámico</a>
+    <a href="#paquete-06" class="qn-pill">06 · Respaldo</a>
+    <a href="#pinata"     class="qn-pill">⬡ Pinata</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ══════════════════════════════════
+       HEADER
+  ══════════════════════════════════ -->
+  <header class="page-header">
+    <p class="eyebrow">// Documentación Técnica · Perfiles Web3</p>
+    <h1>Especificaciones<br><em>Técnicas</em> de Paquetes</h1>
+    <p class="sub">Arquitectura · Rendimiento · Análisis comparativo por plan</p>
+    <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dr"></div></div>
+  </header>
+
+  <!-- ══════════════════════════════════
+       PAQUETE 01 · VELOCIDAD ESTÁNDAR
+  ══════════════════════════════════ -->
+  <div class="pkg-block" id="paquete-01">
+    <div class="brk-tl"></div><div class="brk-tr"></div>
+    <div class="brk-bl"></div><div class="brk-br"></div>
+
+    <div class="pkg-header">
+      <span class="pkg-num">01</span>
+      <div class="pkg-title-group">
+        <p class="pkg-title">Velocidad Estándar</p>
+        <p class="pkg-concept">Alojamiento Tradicional · GitHub Pages</p>
+      </div>
+      <span class="pkg-badge badge-std">ESTÁNDAR</span>
+    </div>
+
+    <p class="block-title">⬡ Descripción</p>
+    <div class="pkg-desc">
+      Infraestructura basada en <em>optimización Web2 tradicional</em>, con despliegue continuo
+      vía GitHub Pages. Ideal para perfiles que priorizan la <em>velocidad de carga instantánea</em>
+      y bajo costo de mantenimiento. Los archivos se sirven desde CDN global de GitHub,
+      garantizando disponibilidad en cualquier navegador sin configuración adicional.
+      Este plan es la puerta de entrada profesional. Utiliza servidores de alto rendimiento 
+      (GitHub Pages) para garantizar que tu tarjeta digital esté disponible en cualquier 
+      parte del mundo con tiempos de carga casi nulos. Es la opción ideal para quienes buscan 
+      eficiencia y simplicidad sin complicaciones técnicas.
+    </div>
+
+    <p class="block-title">⬡ ¿Qué incluye?</p>
+    <ul class="includes-list">
+      <li><span class="ico">⟁</span> Certificado SSL automático vía GitHub (HTTPS forzado)</li>
+      <li><span class="ico">⟁</span> Tráfico ilimitado sin costo adicional de ancho de banda</li>
+      <li><span class="ico">⟁</span> Despliegue automático desde repositorio Git</li>
+      <li><span class="ico">⟁</span> CDN global incluida (servidores distribuidos de GitHub)</li>
+      <li><span class="ico">⟁</span> Historial de versiones y rollback instantáneo</li>
+      <li><span class="ico">⟁</span> Carga Instantánea. Optimización de scripts para visualización inmediata en móviles.</li>
+      <li><span class="ico">⟁</span> Subdominio Personalizado. Tu identidad bajo la estructura nombre.github.io</li>
+
+    </ul>
+
+    <p class="block-title">⬡ Análisis de Rendimiento</p>
+    <div class="perf-grid">
+      <div class="perf-col perf-pros">
+        <p class="perf-head">▲ Ventajas</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Velocidad de carga extrema (sub-100ms en CDN)</li>
+          <li><span class="dot">◆</span> Costo más accesible del catálogo</li>
+          <li><span class="dot">◆</span> Integración directa con flujos de desarrollo</li>
+          <li><span class="dot">◆</span> Sin tiempo de propagación</li>
+          <li><span class="dot">◆</span> Estabilidad. Respaldado por la infraestructura de clase Mundial Microsoft</li>
+        </ul>
+      </div>
+      <div class="perf-col perf-cons">
+        <p class="perf-head">▼ Limitaciones</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Infraestructura centralizada (dependencia de GitHub)</li>
+          <li><span class="dot">◆</span> Sin dominio personalizado incluido</li>
+          <li><span class="dot">◆</span> Susceptible a censura o bloqueo de plataforma</li>
+          <li><span class="dot">◆</span> URL del tipo usuario.github.io</li>
+          <li><span class="dot">◆</span> Inmutabilidad. No cuenta con el repaldo "eterno" del la red descentralizada IPFS</li>
+          
+        </ul>
+      </div>
+    </div>
+  </div><!-- /#paquete-01 -->
+
+  <!-- ══════════════════════════════════
+       PAQUETE 02 · SOBERANÍA WEB3
+  ══════════════════════════════════ -->
+  <div class="pkg-block" id="paquete-02">
+    <div class="brk-tl"></div><div class="brk-tr"></div>
+    <div class="brk-bl"></div><div class="brk-br"></div>
+
+    <div class="pkg-header">
+      <span class="pkg-num">02</span>
+      <div class="pkg-title-group">
+        <p class="pkg-title">Soberanía Web3</p>
+        <p class="pkg-concept">Alojamiento en IPFS · Privacidad Total</p>
+      </div>
+      <span class="pkg-badge badge-web3">WEB3</span>
+    </div>
+
+    <p class="block-title">⬡ Descripción</p>
+    <div class="pkg-desc">
+      El perfil se despliega sobre la <em>red IPFS (InterPlanetary File System)</em>, una arquitectura
+      peer-to-peer descentralizada donde ningún servidor único controla el contenido.
+      Cada archivo recibe un <em>identificador de contenido (CID)</em> único e inmutable,
+      eliminando cualquier posibilidad de censura, eliminación unilateral o pérdida de datos
+      por fallo de infraestructura centralizada.
+      Es la opción definitiva para quienes valoran la privacidad, la seguridad extrema y 
+      quieren que su presencia digital sea prácticamente indestructible
+    </div>
+
+    <p class="block-title">⬡ ¿Qué incluye?</p>
+    <ul class="includes-list">
+      <li><span class="ico">⬡</span> Identidad de contenido CID única en la red IPFS </li>
+      <li><span class="ico">⬡</span> Resiliencia total: sin punto único de fallo</li>
+      <li><span class="ico">⬡</span> Pinning activo vía Pinata para persistencia garantizada</li>
+      <li><span class="ico">⬡</span> Acceso mediante gateway IPFS compatible con Brave</li>
+      <li><span class="ico">⬡</span> Contenido inmutable: nadie puede alterar los archivos</li>
+      <li><span class="ico">⬡</span> Soberanía de Datos: Tú eres el único dueño de la ubicación de tus archivos en la blockchain.</li>
+
+    </ul>
+
+    <p class="block-title">⬡ Análisis de Rendimiento</p>
+    <div class="perf-grid">
+      <div class="perf-col perf-pros">
+        <p class="perf-head">▲ Ventajas</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Inmortalidad del contenido en la red descentralizada</li>
+          <li><span class="dot">◆</span> Sin censura posible desde ninguna entidad</li>
+          <li><span class="dot">◆</span> Privacidad total del propietario del perfil</li>
+          <li><span class="dot">◆</span> Arquitectura nativa Web3</li>
+        </ul>
+      </div>
+      <div class="perf-col perf-cons">
+        <p class="perf-head">▼ Limitaciones</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Propagación inicial más lenta vs. CDN tradicional</li>
+          <li><span class="dot">◆</span> URL técnica larga (CID hash) sin gateway propio</li>
+          <li><span class="dot">◆</span> Requiere navegador compatible (Brave recomendado)</li>
+          <li><span class="dot">◆</span> Sin dominio .com tradicional incluido</li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- /#paquete-02 -->
+
+  <!-- ══════════════════════════════════
+       PAQUETE 03 · HÍBRIDO INICIAL
+  ══════════════════════════════════ -->
+  <div class="pkg-block" id="paquete-03">
+    <div class="brk-tl"></div><div class="brk-tr"></div>
+    <div class="brk-bl"></div><div class="brk-br"></div>
+
+    <div class="pkg-header">
+      <span class="pkg-num">03</span>
+      <div class="pkg-title-group">
+        <p class="pkg-title">Híbrido Inicial</p>
+        <p class="pkg-concept">Arquitectura Dual · IPFS + GitHub</p>
+      </div>
+      <span class="pkg-badge badge-hyb">HÍBRIDO</span>
+    </div>
+
+    <p class="block-title">⬡ Descripción</p>
+    <div class="pkg-desc">
+      Arquitectura de dos capas donde el <em>contenido ligero y la lógica de presentación</em>
+      se sirven desde IPFS para garantizar descentralización, mientras los <em>archivos
+      pesados y multimedia</em> se alojan en GitHub para aprovechar su CDN de alta velocidad.
+      El visitante obtiene la experiencia de un sitio rápido con la resiliencia de la red Web3
+      como capa de seguridad subyacente.
+      mismo tiempo, los archivos pesados, secciones secundarias y galerías se sirven desde GitHub,
+      asegurando que el contenido cargue de forma instantánea incluso en conexiones móviles lentas.
+    </div>
+
+    <p class="block-title">⬡ ¿Qué incluye?</p>
+    <ul class="includes-list">
+      <li><span class="ico">⟁</span> Arquitectura Dual: IPFS para lógica + GitHub para assets</li>
+      <li><span class="ico">⟁</span> Enrutamiento inteligente según tipo de archivo</li>
+      <li><span class="ico">⟁</span> Fachada Web3 con rendimiento Web2 en multimedia</li>
+      <li><span class="ico">⟁</span> Redundancia cruzada entre ambos sistemas</li>
+      <li><span class="ico">⟁</span> Historial de versiones unificado</li>
+      <li><span class="ico">⟁</span>Seguridad Inteligente: Tu "identidad central" está protegida en la blockchain, 
+        mientras que tu "operación" corre en servidores de alta velocidad.</li>
+    </ul>
+
+    <p class="block-title">⬡ Análisis de Rendimiento</p>
+    <div class="perf-grid">
+      <div class="perf-col perf-pros">
+        <p class="perf-head">▲ Ventajas</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Velocidad Web2 combinada con seguridad Web3</li>
+          <li><span class="dot">◆</span> Balance costo-beneficio óptimo del catálogo</li>
+          <li><span class="dot">◆</span> Mayor resiliencia que solución única centralizada</li>
+          <li><span class="dot">◆</span> Escalable hacia planes Pro sin rediseño</li>
+        </ul>
+      </div>
+      <div class="perf-col perf-cons">
+        <p class="perf-head">▼ Limitaciones</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Gestión técnica más compleja (dos sistemas activos)</li>
+          <li><span class="dot">◆</span> Sin dominio personalizado incluido</li>
+          <li><span class="dot">◆</span> Sincronización manual entre capas requerida</li>
+          <li><span class="dot">◆</span> Dependencia parcial en GitHub para multimedia</li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- /#paquete-03 -->
+
+  <!-- ══════════════════════════════════
+       PAQUETE 04 · PRO INMORTAL
+  ══════════════════════════════════ -->
+  <div class="pkg-block" id="paquete-04">
+    <div class="brk-tl"></div><div class="brk-tr"></div>
+    <div class="brk-bl"></div><div class="brk-br"></div>
+
+    <div class="pkg-header">
+      <span class="pkg-num">04</span>
+      <div class="pkg-title-group">
+        <p class="pkg-title">Pro Inmortal</p>
+        <p class="pkg-concept">Web3 Completo · Dominio .poly / .eth Propio</p>
+      </div>
+      <span class="pkg-badge badge-pro">★ PRO</span>
+    </div>
+
+    <p class="block-title">⬡ Descripción</p>
+    <div class="pkg-desc">
+      La solución <em>100% descentralizada</em> con identidad de dominio propia. Todo el contenido
+      vive en IPFS con un dominio <em>.poly, .eth o extensión Web3</em> apuntando directamente
+      al CID del perfil. Ninguna empresa, servidor ni plataforma puede eliminar, censurar o
+      reclamar el contenido. La <em>propiedad real</em> del dominio reside en la wallet del cliente,
+      registrada en blockchain de forma permanente.
+    </div>
+
+    <p class="block-title">⬡ ¿Qué incluye?</p>
+    <ul class="includes-list">
+      <li><span class="ico">★</span> Dominio .poly .eth  registrado a nombre del cliente</li>
+      <li><span class="ico">★</span> Inmutabilidad total del contenido en IPFS</li>
+      <li><span class="ico">★</span> Vinculación dominio → CID en blockchain</li>
+      <li><span class="ico">★</span> Gateway personalizado para acceso universal</li>
+      <li><span class="ico">★</span> ​Alojamiento 100% Web3: Todo el contenido (código, imágenes y scripts) vive permanentemente en la red IPFS.</li>
+      <li><span class="ico">★</span> Pinning activo y monitoreo de nodos incluido</li>
+    </ul>
+
+    <p class="block-title">⬡ Análisis de Rendimiento</p>
+    <div class="perf-grid">
+      <div class="perf-col perf-pros">
+        <p class="perf-head">▲ Ventajas</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Prestigio y credibilidad Web3 máxima</li>
+          <li><span class="dot">◆</span> Propiedad real del dominio en blockchain</li>
+          <li><span class="dot">◆</span> Contenido inmortal sin dependencia de terceros</li>
+          <li><span class="dot">◆</span> URL profesional y memorable</li>
+          <li><span class="dot">◆</span> Resistencia total. Inmune a censura, caida de servidores globales y ataques externos.</li>
+
+        </ul>
+      </div>
+      <div class="perf-col perf-cons">
+        <p class="perf-head">▼ Limitaciones</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Inversión inicial más alta del catálogo</li>
+          <li><span class="dot">◆</span> Costo de dominio variable según nombre elegido</li>
+          <li><span class="dot">◆</span> Requiere wallet para gestión del dominio</li>
+          <li><span class="dot">◆</span> Propagación IPFS inicial (primeras horas)</li>
+          <li><span class="dot">◆</span> Actualizaciones. Cualquier cambio requiere un proceso de re-sellado </li>
+
+        </ul>
+      </div>
+    </div>
+  </div><!-- /#paquete-04 -->
+
+  <!-- ══════════════════════════════════
+       PAQUETE 05 · PRO DINÁMICO
+  ══════════════════════════════════ -->
+  <div class="pkg-block" id="paquete-05">
+    <div class="brk-tl"></div><div class="brk-tr"></div>
+    <div class="brk-bl"></div><div class="brk-br"></div>
+
+    <div class="pkg-header">
+      <span class="pkg-num">05</span>
+      <div class="pkg-title-group">
+        <p class="pkg-title">Pro Dinámico</p>
+        <p class="pkg-concept">Dominio Propio · Carga Híbrida Optimizada</p>
+      </div>
+      <span class="pkg-badge badge-pro">★ PRO</span>
+    </div>
+
+    <p class="block-title">⬡ Descripción</p>
+    <div class="pkg-desc">
+      Combina la <em>identidad de un dominio propio</em> con la arquitectura híbrida de doble capa,
+      logrando el mayor equilibrio entre branding profesional, velocidad de carga y
+      resiliencia descentralizada. Ideal para perfiles con <em>contenido multimedia intensivo</em>
+      que necesitan una URL premium sin sacrificar performance. Incluye optimizaciones
+      automáticas de imágenes y <em>mejoras SEO</em> para visibilidad en motores de búsqueda.
+      Tu acceso principal está protegido en la red Web3 (IPFS) para garantizar disponibilidad, 
+      mientras que tu contenido multimedia pesado se sirve desde servidores de alta velocidad 
+      (GitHub). Es la tarjeta perfecta: profesional al contacto y ultra rápida al navegar.
+    </div>
+
+    <p class="block-title">⬡ ¿Qué incluye?</p>
+    <ul class="includes-list">
+      <li><span class="ico">★</span> Dominio personalizado (.com, .poly u otro) a nombre del cliente</li>
+      <li><span class="ico">★</span> SEO técnico mejorado con meta-tags y sitemap</li>
+      <li><span class="ico">★</span> Optimización multimedia automática (compresión inteligente)</li>
+      <li><span class="ico">★</span> Arquitectura Dual IPFS + CDN para máxima velocidad</li>
+      <li><span class="ico">★</span> Diseño Premium con animaciones avanzadas</li>
+    </ul>
+
+    <p class="block-title">⬡ Análisis de Rendimiento</p>
+    <div class="perf-grid">
+      <div class="perf-col perf-pros">
+        <p class="perf-head">▲ Ventajas</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Branding profesional con dominio premium</li>
+          <li><span class="dot">◆</span> Velocidad ultra-rápida por arquitectura híbrida</li>
+          <li><span class="dot">◆</span> Visibilidad SEO en buscadores Web2</li>
+          <li><span class="dot">◆</span> Mejor relación inversión/rendimiento del catálogo Pro</li>
+        </ul>
+      </div>
+      <div class="perf-col perf-cons">
+        <p class="perf-head">▼ Limitaciones</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Dependencia parcial en GitHub para multimedia</li>
+          <li><span class="dot">◆</span> Costo de dominio variable según nombre elegido</li>
+          <li><span class="dot">◆</span> Gestión de dos sistemas requiere soporte activo</li>
+          <li><span class="dot">◆</span> No es 100% descentralizado como el Pro Inmortal</li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- /#paquete-05 -->
+
+  <!-- ══════════════════════════════════
+       PAQUETE 06 · RESPALDO TOTAL
+  ══════════════════════════════════ -->
+  <div class="pkg-block" id="paquete-06">
+    <div class="brk-tl"></div><div class="brk-tr"></div>
+    <div class="brk-bl"></div><div class="brk-br"></div>
+
+    <div class="pkg-header">
+      <span class="pkg-num">06</span>
+      <div class="pkg-title-group">
+        <p class="pkg-title">Respaldo Total</p>
+        <p class="pkg-concept">Sistema Espejo Redundante · Git + IPFS Mirror</p>
+      </div>
+      <span class="pkg-badge badge-back">BACKUP</span>
+    </div>
+
+    <p class="block-title">⬡ Descripción</p>
+    <div class="pkg-desc">
+      Arquitectura de <em>redundancia activa total</em>: el perfil existe simultáneamente en
+      GitHub Pages y en la red IPFS como espejo sincronizado. Si uno de los sistemas experimenta
+      una caída, el otro toma el relevo de forma <em>transparente para el visitante</em>.
+      Es el plan con mayor garantía de uptime del catálogo, diseñado para clientes
+      que no pueden permitirse ni un minuto de inactividad.
+    </div>
+
+    <p class="block-title">⬡ ¿Qué incluye?</p>
+    <ul class="includes-list">
+      <li><span class="ico">⟁</span> Redundancia automática Git ↔ IPFS en tiempo real</li>
+      <li><span class="ico">⟁</span> Monitoreo de disponibilidad en ambas redes</li>
+      <li><span class="ico">⟁</span> Conmutación automática ante fallos (failover)</li>
+      <li><span class="ico">⟁</span> Historial inmutable en IPFS como archivo permanente</li>
+      <li><span class="ico">⟁</span> Notificación ante incidencias en cualquier nodo</li>
+    </ul>
+
+    <p class="block-title">⬡ Análisis de Rendimiento</p>
+    <div class="perf-grid">
+      <div class="perf-col perf-pros">
+        <p class="perf-head">▲ Ventajas</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Cero riesgo de caídas totales (uptime máximo)</li>
+          <li><span class="dot">◆</span> Redundancia activa en dos redes independientes</li>
+          <li><span class="dot">◆</span> Historial permanente e inmutable en IPFS</li>
+          <li><span class="dot">◆</span> Protección ante censura unilateral de cualquier plataforma</li>
+        </ul>
+      </div>
+      <div class="perf-col perf-cons">
+        <p class="perf-head">▼ Limitaciones</p>
+        <ul class="perf-list">
+          <li><span class="dot">◆</span> Sincronización dual requiere gestión activa</li>
+          <li><span class="dot">◆</span> Sin dominio personalizado incluido</li>
+          <li><span class="dot">◆</span> Mayor complejidad técnica en actualizaciones</li>
+          <li><span class="dot">◆</span> Costo de renta ligeramente superior al plan estándar</li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- /#paquete-06 -->
+
+  <!-- ══════════════════════════════════
+       COSTOS EXTRA · PINATA
+  ══════════════════════════════════ -->
+  <section class="pinata-section" id="pinata">
+    <div class="brk-tl"></div><div class="brk-br"></div>
+
+    <p class="eyebrow" style="text-align:left;margin-bottom:10px;">// infraestructura adicional</p>
+    <h2 class="pinata-title">Costos Extra de <span>Pinata</span></h2>
+    <p class="pinata-sub">
+      Pinata es el servicio de pinning que mantiene tu contenido activo y accesible en la red IPFS.
+      Los siguientes cargos aplican cuando el uso supera los límites base del plan contratado.
+      Son transparentes, medibles y solo se cobran por uso real.
+    </p>
+
+    <div class="pinata-grid">
+      <div class="pinata-item">
+        <span class="p-icon">🗄️</span>
+        <p class="p-name">GB Almacenamiento</p>
+        <p class="p-price">$10.50</p>
+        <p class="p-unit">MXN · por GB adicional</p>
+      </div>
+      <div class="pinata-item">
+        <span class="p-icon">📡</span>
+        <p class="p-name">GB Ancho de Banda</p>
+        <p class="p-price">$12.50</p>
+        <p class="p-unit">MXN · por GB transferido</p>
+      </div>
+      <div class="pinata-item">
+        <span class="p-icon">⚡</span>
+        <p class="p-name">10k API Requests</p>
+        <p class="p-price">$24.50</p>
+        <p class="p-unit">MXN · por bloque de 10,000</p>
+      </div>
+      <div class="pinata-item">
+        <span class="p-icon">🌐</span>
+        <p class="p-name">Gateway Dedicada</p>
+        <p class="p-price">$150.00</p>
+        <p class="p-unit">MXN · mensual · acceso privado</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="page-foot">
+    <p>
+      <span>Perfiles Web3</span> · Documentación Técnica ·
+      Precios expresados en <span>MXN</span> ·
+      Optimizado para <span>Brave Browser</span>
+    </p>
+  </footer>
+
+</div><!-- /page -->
+</body>
+</html>
